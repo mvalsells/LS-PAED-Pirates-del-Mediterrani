@@ -30,7 +30,23 @@ public class LeerDataset {
                 int idDestinacion = Integer.parseInt(split[1]);
                 float distancia = Float.parseFloat(split[2]);
 
-                Vertice.anadirRelacion(idOrigen,idDestinacion,distancia);
+                int posOrigen=0;
+                int posDestination=0;
+                boolean origen=false;
+                boolean destination=false;
+                for (Vertice v: arrayV){
+                    if (v.getId() == idOrigen) {
+                        posOrigen=v.getPosicion();
+                        origen = true;
+                    } else if (v.getId() == idDestinacion){
+                        posDestination=v.getPosicion();
+                        destination=true;
+                    } else if ( destination && origen){
+                        break;
+                    }
+                }
+
+                Vertice.anadirRelacion(posOrigen,posDestination,distancia);
 
             }
         } catch (FileNotFoundException e) {
