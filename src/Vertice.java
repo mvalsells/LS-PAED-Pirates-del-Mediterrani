@@ -8,6 +8,7 @@ public class Vertice {
     private int posicion;
     private static float[][] relaciones;
     private static int lastPos=0;
+    private boolean visitado;
 
     public Vertice(int id, String nombre, String tipo) {
         this.id = id;
@@ -15,6 +16,7 @@ public class Vertice {
         lastPos++;
         this.nombre = nombre;
         this.tipo = tipo;
+        visitado=false;
         //relaciones = new ArrayList<>();
     }
 
@@ -32,6 +34,14 @@ public class Vertice {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public boolean isVisitado() {
+        return visitado;
+    }
+
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
     }
 
     public static float[][] getRelaciones() {
