@@ -3,7 +3,8 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         Graf.init();
-        Graf.opcionA(88);
+        //Graf.opcionA(88);
+        Graf.opcionB(88);
         /*for (int i=0; i< arrayV.size(); i++) {
             System.out.println(arrayV.get(i).toString());
         }*/

@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Vector;
 
-public class Vertice {
+public class Vertice implements Comparable {
     private int id;
     private String nombre;
     private String tipo;
@@ -66,5 +67,11 @@ public class Vertice {
                 ", tipo='" + tipo + '\'' +
                 ", posicion=" + posicion +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Vertice aux = (Vertice) o;
+        return this.id - aux.id;
     }
 }
