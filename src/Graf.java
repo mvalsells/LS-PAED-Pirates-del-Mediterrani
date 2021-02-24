@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class Graf {
     private static ArrayList<Vertice> vertices;
@@ -32,8 +33,10 @@ public class Graf {
                 }
             }
 
+            System.out.println("\nAmb DFS s'han trobat els següents llocs d'interès: \n");
+
             for(Vertice v:interest){
-                System.out.println(v.getNombre() + " - " + v.getTipo());
+                System.out.println("\t" + v.getNombre() + " - " + v.getTipo());
             }
         }
     }
@@ -76,8 +79,9 @@ public class Graf {
                 }
             }
 
+            System.out.println("\nAmb BFS s'han trobat els següents llocs perillosos: \n");
             for(Vertice v:danger){
-                System.out.println(v.getNombre() + " - " + v.getTipo());
+                System.out.println("\t" + v.getNombre() + " - " + v.getTipo());
             }
         }
     }
@@ -104,5 +108,58 @@ public class Graf {
                 }
             }
         }
+    }
+
+    public static void menuPrincipal() {
+
+        Scanner scInt = new Scanner(System.in);
+        int nodeOrigen;
+
+        System.out.println("\n\tA. Cercar llocs d'interès (DFS)");
+        System.out.println("\tB. Cercar llocs perillosos (BFS)");
+        System.out.println("\tC. Mostrar la Carta Nàutica Universal (MST)");
+        System.out.println("\tD. Trobar la ruta òptima (Dijkstra) \n");
+        System.out.println("\tE. Tornar enrere");
+
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\n\tEscull una opció:");
+        String opc = sc.nextLine();
+
+        switch (opc) {
+            case "A":
+
+                System.out.print("\nEntra l'identificador del node origen: ");
+                nodeOrigen = scInt.nextInt();
+
+                opcionA(nodeOrigen);
+
+                return;
+
+            case "B":
+
+                System.out.print("\nEntra l'identificador del node origen: ");
+                nodeOrigen = scInt.nextInt();
+
+                opcionB(nodeOrigen);
+
+                return;
+
+            case "C":
+                return;
+
+            case "D":
+                return;
+
+            case "E":
+                return;
+
+            default:
+                System.out.println("Aquesta opció no existeix");
+                break;
+        }
+
+        menuPrincipal();
+
     }
 }

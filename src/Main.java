@@ -1,19 +1,50 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Graf.init();
-        //Graf.opcionA(88);
-        Graf.opcionB(88);
-        /*for (int i=0; i< arrayV.size(); i++) {
-            System.out.println(arrayV.get(i).toString());
-        }*/
-        /*float[][] rel = Vertice.getRelaciones();
-        for (int i = 0; i < rel.length ; i++) {
-            for (int j = 0; j < rel.length; j++) {
-                System.out.print(rel[i][j]+"\t |");
-            }
-            System.out.println("");
-        }*/
+
+        menuPrincipal();
+    }
+
+    public static void menuPrincipal() {
+        System.out.println("\n-= Pirates del Mediterrani =- \n");
+        System.out.println("1. Rutes (Grafs)");
+        System.out.println("2. Inventari (Arbres binaris)");
+        System.out.println("3. Coberta (Arbres R)");
+        System.out.println("4. Tripulació (Taules) \n");
+        System.out.println("5. Sortir");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\nEscull una opció:");
+        int opc = sc.nextInt();
+
+        switch (opc) {
+            case 1:
+
+                Graf.menuPrincipal();
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                System.out.println("A reveure camarada!");
+                return;
+
+            default:
+                System.out.println("Aquesta opció no existeix");
+                break;
+        }
+
+        menuPrincipal();
+
     }
 }
