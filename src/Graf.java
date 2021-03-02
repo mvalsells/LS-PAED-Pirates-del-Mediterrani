@@ -8,7 +8,7 @@ public class Graf {
     private static ArrayList<Vertice> interest;
     private static ArrayList<Vertice> danger;
     public static void init(){
-        vertices = LeerDataset.grafs("dataset/graphS.paed");
+        vertices = LeerDataset.grafs("dataset/graphXXS.paed");
     }
 
     public static void opcionA(int origen){
@@ -110,6 +110,55 @@ public class Graf {
         }
     }
 
+    private static void opcionC () {
+        System.out.println("Obtenint el MST...");
+        mst();
+    }
+
+    private static void mst() {
+        Vertice parents[] = new Vertice[vertices.size()];
+        float key[] = new float[vertices.size()];
+        float relaciones[][] = Vertice.getRelaciones();
+
+        for (int i = 0; i < vertices.size(); i++) {
+            vertices.get(i).setVisitado(false);
+            key[i] = Float.MAX_VALUE;
+        }
+
+        key[0] = 0.0f;
+        parents[0] = null;
+
+        for (int i = 0; i < vertices.size() - 1; i++) {
+            float minDist = Float.MAX_VALUE;
+            Vertice vertMin = null;
+
+            for (int j = 0; j < vertices.size(); j++) {
+                if(!vertices.get(j).isVisitado() && key[j] < minDist) {
+                    minDist = key[j];
+                    vertMin = vertices.get(j);
+
+                }
+            }
+
+            vertMin.setVisitado(true);
+
+            for (int j = 0; j < vertices.size(); j++) {
+                float rel = relaciones[vertMin.getPosicion()][vertices.get(j).getPosicion()];
+                if(rel != 0 && !vertices.get(j).isVisitado() && rel < key[j]) {
+                    parents[j] = vertMin;
+                    key[j] = rel;
+                }
+            }
+
+        }
+
+        for (int i = 1; i < vertices.size(); i++) {
+            System.out.println(parents[i].toString() + "-----" + relaciones[i][parents[i].getPosicion()]);
+        }
+
+
+    }
+
     public static void menuPrincipal() {
 
         Scanner scInt = new Scanner(System.in);
@@ -146,6 +195,8 @@ public class Graf {
                 return;
 
             case "C":
+
+                opcionC();
                 return;
 
             case "D":
