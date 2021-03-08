@@ -159,6 +159,48 @@ public class Graf {
 
     }
 
+    private static void opcionD() {
+        Scanner sc = new Scanner(System.in);
+        int nodoOrigen, nodoDestino;
+
+        System.out.println("Entra identificador nodo origen: ");
+        nodoOrigen = sc.nextInt();
+
+        System.out.println("Entra identificador nodo destino: ");
+        nodoDestino = sc.nextInt();
+    }
+
+    private static void dijkstra(Vertice nodoOrigen, Vertice nodoDestino) {
+        float dist[] = new float[vertices.size()];
+        for (int i = 0; i < vertices.size(); i++) {
+            dist[i] = Float.MAX_VALUE;
+            vertices.get(i).setVisitado(false);
+        }
+        dist[nodoOrigen.getPosicion()] = 0;
+        nodoOrigen.setVisitado(true);
+
+        if (!nodoDestino.isVisitado()) {
+            for (Vertice vertice : vertices) {
+                vertice.setVisitado(true);
+                for (Vertice adj : vertices) {
+                    float disAdj = Vertice.getRelaciones()[vertice.getPosicion()][adj.getPosicion()];
+                    if (disAdj != 0){
+                        adj.setVisitado(true);
+                        dist[adj.getPosicion()] =+ disAdj;
+
+                        if (adj.equals(nodoDestino)){
+
+                        }
+
+                        dist[adj.getPosicion()] =- disAdj;
+                        adj.setVisitado(false);
+                    }
+                }
+                vertice.setVisitado(false);
+            }
+        }
+    }
+
     public static void menuPrincipal() {
 
         Scanner scInt = new Scanner(System.in);
