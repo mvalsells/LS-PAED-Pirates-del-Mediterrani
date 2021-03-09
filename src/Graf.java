@@ -163,41 +163,69 @@ public class Graf {
         Scanner sc = new Scanner(System.in);
         int nodoOrigen, nodoDestino;
 
-        System.out.println("Entra identificador nodo origen: ");
+        System.out.print("Entra identificador nodo origen: ");
         nodoOrigen = sc.nextInt();
 
-        System.out.println("Entra identificador nodo destino: ");
+        System.out.print("Entra identificador nodo destino: ");
         nodoDestino = sc.nextInt();
+
+        Vertice vertOrigen = null, vertDestino = null;
+        for (Vertice v : vertices){
+            if (v.getId() == nodoOrigen) {
+                vertOrigen = v;
+            } else if (v.getId() == nodoDestino){
+                vertDestino = v;
+            }
+        }
+
+        if (vertOrigen != null && vertDestino != null){
+            dijkstra(vertOrigen,vertDestino);
+        }
+
+
     }
 
     private static void dijkstra(Vertice nodoOrigen, Vertice nodoDestino) {
         float dist[] = new float[vertices.size()];
+        float graf[][] = Vertice.getRelaciones();
         for (int i = 0; i < vertices.size(); i++) {
             dist[i] = Float.MAX_VALUE;
             vertices.get(i).setVisitado(false);
         }
         dist[nodoOrigen.getPosicion()] = 0;
         nodoOrigen.setVisitado(true);
+        Vertice actual = nodoOrigen;
 
-        if (!nodoDestino.isVisitado()) {
-            for (Vertice vertice : vertices) {
-                vertice.setVisitado(true);
-                for (Vertice adj : vertices) {
-                    float disAdj = Vertice.getRelaciones()[vertice.getPosicion()][adj.getPosicion()];
-                    if (disAdj != 0){
-                        adj.setVisitado(true);
-                        dist[adj.getPosicion()] =+ disAdj;
-
-                        if (adj.equals(nodoDestino)){
-
-                        }
-
-                        dist[adj.getPosicion()] =- disAdj;
-                        adj.setVisitado(false);
+        while (!nodoDestino.isVisitado()) {
+            for (Vertice adj : vertices){
+                float peso = graf[actual.getPosicion()][adj.getPosicion()];
+                if (peso != 0 && !adj.isVisitado()){
+                    float nova = dist[actual.getPosicion()] + peso;
+                    if (dist[adj.getPosicion()] > nova){
+                        dist[adj.getPosicion()] = nova;
+                        //camins que ara s'esvaeixen
                     }
                 }
-                vertice.setVisitado(false);
             }
+            actual.setVisitado(true);
+
+
+            float minDist = Float.MAX_VALUE;
+            Vertice vertMin = null;
+
+            for (int j = 0; j < vertices.size(); j++) {
+                if(!vertices.get(j).isVisitado() && dist[j] < minDist) {
+                    minDist = dist[j];
+                    vertMin = vertices.get(j);
+                }
+            }
+            actual = vertMin;
+
+
+        }
+
+        for (int i = 0; i < dist.length; i++) {
+            System.out.print("dist: " + dist[i]);
         }
     }
 
@@ -242,6 +270,7 @@ public class Graf {
                 return;
 
             case "D":
+                opcionD();
                 return;
 
             case "E":
