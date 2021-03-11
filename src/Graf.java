@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
 public class Graf {
     private static ArrayList<Vertice> vertices;
@@ -87,7 +84,8 @@ public class Graf {
     }
 
     private static void bfs(Vertice nodo) {
-        PriorityQueue<Vertice> cua = new PriorityQueue<>();
+        Queue<Vertice> cua = new LinkedList<>();
+       // PriorityQueue<Vertice> cua = new PriorityQueue<>();
         cua.offer(nodo);
         nodo.setVisitado(true);
         while (!cua.isEmpty()){
@@ -112,7 +110,7 @@ public class Graf {
 
     private static void opcionC () {
         System.out.println("Obtenint el MST...");
-        mst();
+        mstPrim();
     }
 
     private static void mst() {
@@ -157,6 +155,48 @@ public class Graf {
         }
 
 
+    }
+
+    private static void mstPrim() {
+        Vertice nodos[] = new Vertice[vertices.size()];
+        int j = 0, k = 0;
+
+        float rels[][] = new float[vertices.size()][vertices.size()];
+
+        for (int i = 0; i < vertices.size(); i++) {
+            vertices.get(i).setVisitado(false);
+        }
+
+        vertices.get(0).setVisitado(true);
+        nodos[0] = vertices.get(0);
+
+        for (int i = 1; i < vertices.size(); i++) {
+            float peso = Float.MAX_VALUE;
+            int position = -1;
+            int jv2 = -1;
+            for (j = 0; j < vertices.size(); j++) {
+                if(vertices.get(j).isVisitado()) {
+                    for (k = 0; k < vertices.size(); k++) {
+                        if(Vertice.getRelaciones()[j][k] < peso && !vertices.get(k).isVisitado() && Vertice.getRelaciones()[j][k] != 0) {
+                            peso = Vertice.getRelaciones()[j][k];
+                            position = k;
+                            jv2 = j;
+                        }
+                    }
+                }
+            }
+            rels[jv2][position] = peso;
+            rels[position][jv2] = peso;
+            vertices.get(position).setVisitado(true);
+            nodos[i] = vertices.get(position);
+        }
+
+        for (int i = 0; i < rels.length; i++) {
+            System.out.println();
+            for (int l = 0; l < rels.length; l++) {
+                System.out.print(rels[i][l] + "\t");
+            }
+        }
     }
 
     private static void opcionD() {
