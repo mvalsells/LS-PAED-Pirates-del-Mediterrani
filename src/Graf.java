@@ -113,7 +113,7 @@ public class Graf {
         mstPrim();
     }
 
-    private static void mst() {
+    /*private static void mst() {
         Vertice parents[] = new Vertice[vertices.size()];
         float key[] = new float[vertices.size()];
         float relaciones[][] = Vertice.getRelaciones();
@@ -155,7 +155,7 @@ public class Graf {
         }
 
 
-    }
+    }*/
 
     private static void mstPrim() {
         Vertice nodos[] = new Vertice[vertices.size()];
@@ -226,6 +226,10 @@ public class Graf {
     }
 
     private static void dijkstra(Vertice nodoOrigen, Vertice nodoDestino) {
+        int caminos[][] = new int[vertices.size()][vertices.size()];
+        for (int i = 0; i < caminos.length; i++) {
+            Arrays.fill(caminos[i], -1);
+        }
         float dist[] = new float[vertices.size()];
         float graf[][] = Vertice.getRelaciones();
         for (int i = 0; i < vertices.size(); i++) {
@@ -235,7 +239,7 @@ public class Graf {
         dist[nodoOrigen.getPosicion()] = 0;
         nodoOrigen.setVisitado(true);
         Vertice actual = nodoOrigen;
-
+        caminos[actual.getPosicion()][0] = actual.getId();
         while (!nodoDestino.isVisitado()) {
             for (Vertice adj : vertices){
                 float peso = graf[actual.getPosicion()][adj.getPosicion()];
@@ -243,7 +247,15 @@ public class Graf {
                     float nova = dist[actual.getPosicion()] + peso;
                     if (dist[adj.getPosicion()] > nova){
                         dist[adj.getPosicion()] = nova;
-                        //camins que ara s'esvaeixen
+                        int i=0;
+                        for (i = 0; i < caminos.length; i++) {
+                            if (caminos[actual.getPosicion()][i]!=-1){
+                                caminos[adj.getPosicion()][i] = caminos[actual.getPosicion()][i];
+                            } else {
+                                break;
+                            }
+                        }
+                        caminos[adj.getPosicion()][i] = adj.getId();
                     }
                 }
             }
@@ -264,9 +276,16 @@ public class Graf {
 
         }
 
-        for (int i = 0; i < dist.length; i++) {
-            System.out.print("dist: " + dist[i]);
+        System.out.println("Distancia total: " + dist[nodoDestino.getPosicion()]);
+        System.out.print("Passem pels nodes: ");
+        for (int i = 0; i < caminos.length; i++){
+            if (caminos[nodoDestino.getPosicion()][i] != -1 ) {
+                System.out.print(caminos[nodoDestino.getPosicion()][i] + ", ");
+            } else {
+                break;
+            }
         }
+        System.out.println();
     }
 
     public static void menuPrincipal() {
