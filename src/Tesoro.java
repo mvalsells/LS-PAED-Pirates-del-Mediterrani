@@ -1,10 +1,19 @@
 public class Tesoro {
     private String name;
     private long valor;
+    private Tesoro padre;
+    private Tesoro hijoMenor;
+    private Tesoro hijoMayor;
 
     public Tesoro(String name, long valor){
         this.name  = name;
         this.valor = valor;
+    }
+
+    public Tesoro(String name, long valor, Tesoro padre) {
+        this.name = name;
+        this.valor = valor;
+        this.padre = padre;
     }
 
     public String getName() {
@@ -21,5 +30,29 @@ public class Tesoro {
 
     public void setValor(long valor) {
         this.valor = valor;
+    }
+
+    public Tesoro getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Tesoro padre) {
+        this.padre = padre;
+    }
+
+    public Tesoro getHijoMenor() {
+        return hijoMenor;
+    }
+
+    public void setHijoMenor(Tesoro hijoMenor) {
+        this.hijoMenor = hijoMenor;
+    }
+
+    public Tesoro getHijoMayor() {
+        return hijoMayor;
+    }
+
+    public void setHijoMayor(Tesoro hijoMayor) {
+        this.hijoMayor = hijoMayor;
     }
 }
