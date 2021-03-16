@@ -27,6 +27,7 @@ public class Main {
                 break;
 
             case 2:
+                ControlArbolesBinarios.menuPrincipal();
                 break;
 
             case 3:
