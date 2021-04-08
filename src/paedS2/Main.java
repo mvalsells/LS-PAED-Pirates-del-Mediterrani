@@ -1,11 +1,13 @@
 package paedS2;
 
+import paedS2.arbres.ArbolTesoro;
 import paedS2.arbres.ControlArbolesBinarios;
 import paedS2.grafs.Graf;
 
 import java.util.Scanner;
 
 public class Main {
+    private static ControlArbolesBinarios controlArbolesBinarios = new ControlArbolesBinarios();;
     public static void main(String[] args) {
         Graf.init();
 
@@ -31,7 +33,7 @@ public class Main {
                 break;
 
             case 2:
-                ControlArbolesBinarios.menuPrincipal();
+                controlArbolesBinarios.menuPrincipal();
                 break;
 
             case 3:

@@ -74,13 +74,13 @@ public class LeerDataset {
 
             String linia = br.readLine();
             String[] split = linia.split(",");
-            int valor = Integer.parseInt(split[1]);
+            long valor = Long.parseLong(split[1]);
             arbol = new ArbolTesoro(new Tesoro(split[0], valor));
 
             for (int i =1; i<numTesoros; i++){
                 linia = br.readLine();
                 split = linia.split(",");
-                valor = Integer.parseInt(split[1]);
+                valor = Long.parseLong(split[1]);
                 arbol.inserirNodo(new Tesoro(split[0], valor));
 
             }

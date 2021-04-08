@@ -39,7 +39,7 @@ public class ControlArbolesBinarios {
 
 
 
-    public static void menuPrincipal() {
+    public void menuPrincipal() {
 
         Scanner scInt = new Scanner(System.in);
         int nodeOrigen;
