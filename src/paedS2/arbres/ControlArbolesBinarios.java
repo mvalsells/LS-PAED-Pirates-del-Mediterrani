@@ -13,26 +13,15 @@ public class ControlArbolesBinarios {
     public ControlArbolesBinarios() {
         arbolTesoro = LeerDataset.tesoro(ruta);
     }
-    private static void opcionA (){
-
+    private void opcionA (){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\nEntra el nom del tresor a afegir: ");
+        String nom = sc.nextLine();
+        System.out.print("Entra el valor del tresor a afegir: ");
+        Long valor = Long.parseLong(sc.nextLine());
+        arbolTesoro.inserirNodo(new Tesoro(nom, valor));
+        System.out.println("\nEl tresor s'ha afegit correctament al botí.");
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -58,7 +47,7 @@ public class ControlArbolesBinarios {
 
         switch (opc) {
             case "A":
-
+                opcionA();
                 return;
 
             case "B":
