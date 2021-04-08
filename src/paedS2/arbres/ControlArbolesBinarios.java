@@ -1,7 +1,18 @@
+package paedS2.arbres;
+
+import paedS2.LeerDataset;
+
 import java.util.Scanner;
 
 public class ControlArbolesBinarios {
 
+    String ruta = "dataset/treeXXS.paed";
+
+    private ArbolTesoro arbolTesoro;
+
+    public ControlArbolesBinarios() {
+        arbolTesoro = LeerDataset.tesoro(ruta);
+    }
     private static void opcionA (){
 
     }
@@ -33,11 +44,12 @@ public class ControlArbolesBinarios {
         Scanner scInt = new Scanner(System.in);
         int nodeOrigen;
 
-        System.out.println("\n\tA. Cercar llocs d'interès (DFS)");
-        System.out.println("\tB. Cercar llocs perillosos (BFS)");
-        System.out.println("\tC. Mostrar la Carta Nàutica Universal (MST)");
-        System.out.println("\tD. Trobar la ruta òptima (Dijkstra) \n");
-        System.out.println("\tE. Tornar enrere");
+        System.out.println("\n\tA. Afegir tresor");
+        System.out.println("\tB. Eliminar tresor");
+        System.out.println("\tC. Llistar botí");
+        System.out.println("\tD. Cerca per valor (exacte)");
+        System.out.println("\tE. Cerca valor (rang)\n");
+        System.out.println("\tF. Tornar enrere");
 
 
         Scanner sc = new Scanner(System.in);
@@ -64,6 +76,10 @@ public class ControlArbolesBinarios {
                 return;
 
             case "E":
+
+                return;
+
+            case "F":
                 return;
 
             default:

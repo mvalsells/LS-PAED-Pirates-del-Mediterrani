@@ -1,3 +1,9 @@
+package paedS2;
+
+import paedS2.arbres.ArbolTesoro;
+import paedS2.arbres.Tesoro;
+import paedS2.grafs.Vertice;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -55,5 +61,35 @@ public class LeerDataset {
             e.printStackTrace();
         }
         return arrayV;
+    }
+
+    public static ArbolTesoro tesoro (String ruta) {
+
+        ArbolTesoro arbol = null;
+
+        try {
+            FileReader fr = new FileReader(ruta);
+            BufferedReader br = new BufferedReader(fr);
+            int numTesoros = Integer.parseInt(br.readLine());
+
+            String linia = br.readLine();
+            String[] split = linia.split(",");
+            int valor = Integer.parseInt(split[1]);
+            arbol = new ArbolTesoro(new Tesoro(split[0], valor));
+
+            for (int i =1; i<numTesoros; i++){
+                linia = br.readLine();
+                split = linia.split(",");
+                valor = Integer.parseInt(split[1]);
+                arbol.inserirNodo(new Tesoro(split[0], valor));
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return arbol;
     }
 }

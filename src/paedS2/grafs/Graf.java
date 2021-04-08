@@ -1,3 +1,7 @@
+package paedS2.grafs;
+
+import paedS2.LeerDataset;
+
 import java.util.*;
 
 public class Graf {
@@ -85,7 +89,7 @@ public class Graf {
 
     private static void bfs(Vertice nodo) {
         Queue<Vertice> cua = new LinkedList<>();
-       // PriorityQueue<Vertice> cua = new PriorityQueue<>();
+       // PriorityQueue<paedS2.grafs.Vertice> cua = new PriorityQueue<>();
         cua.offer(nodo);
         nodo.setVisitado(true);
         while (!cua.isEmpty()){
@@ -114,9 +118,9 @@ public class Graf {
     }
 
     /*private static void mst() {
-        Vertice parents[] = new Vertice[vertices.size()];
+        paedS2.grafs.Vertice parents[] = new paedS2.grafs.Vertice[vertices.size()];
         float key[] = new float[vertices.size()];
-        float relaciones[][] = Vertice.getRelaciones();
+        float relaciones[][] = paedS2.grafs.Vertice.getRelaciones();
 
         for (int i = 0; i < vertices.size(); i++) {
             vertices.get(i).setVisitado(false);
@@ -128,7 +132,7 @@ public class Graf {
 
         for (int i = 0; i < vertices.size() - 1; i++) {
             float minDist = Float.MAX_VALUE;
-            Vertice vertMin = null;
+            paedS2.grafs.Vertice vertMin = null;
 
             for (int j = 0; j < vertices.size(); j++) {
                 if(!vertices.get(j).isVisitado() && key[j] < minDist) {

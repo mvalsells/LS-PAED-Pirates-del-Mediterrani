@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
+package paedS2.grafs;
 
 public class Vertice implements Comparable {
     private int id;
@@ -61,7 +59,7 @@ public class Vertice implements Comparable {
 
     @Override
     public String toString() {
-        return "Vertice{" +
+        return "paedS2.grafs.Vertice{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", tipo='" + tipo + '\'' +

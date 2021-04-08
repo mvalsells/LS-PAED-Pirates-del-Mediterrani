@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package paedS2;
+
+import paedS2.arbres.ControlArbolesBinarios;
+import paedS2.grafs.Graf;
+
 import java.util.Scanner;
 
 public class Main {

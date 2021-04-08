@@ -1,3 +1,5 @@
+package paedS2.arbres;
+
 public class Tesoro {
     private String name;
     private long valor;

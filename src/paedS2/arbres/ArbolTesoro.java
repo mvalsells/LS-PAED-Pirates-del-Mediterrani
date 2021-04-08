@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package paedS2.arbres;
 
 public class ArbolTesoro {
 
