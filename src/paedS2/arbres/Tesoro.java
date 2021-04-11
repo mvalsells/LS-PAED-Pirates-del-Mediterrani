@@ -10,6 +10,8 @@ public class Tesoro {
     public Tesoro(String name, long valor){
         this.name  = name;
         this.valor = valor;
+        this.hijoMenor = null;
+        this.hijoMayor = null;
     }
 
     public Tesoro(String name, long valor, Tesoro padre) {
@@ -56,5 +58,10 @@ public class Tesoro {
 
     public void setHijoMayor(Tesoro hijoMayor) {
         this.hijoMayor = hijoMayor;
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + valor + " doblons";
     }
 }

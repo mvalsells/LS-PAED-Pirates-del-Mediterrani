@@ -3,6 +3,8 @@ package paedS2.arbres;
 public class ArbolTesoro {
 
     private Tesoro tesoroOrigen;
+    private Tesoro tesoroAux;
+    private boolean tesoroTrobat;
 
     public ArbolTesoro(Tesoro tesoroOrigen) {
         this.tesoroOrigen = tesoroOrigen;
@@ -27,5 +29,79 @@ public class ArbolTesoro {
             }
         }
     }
+
+    public void buscarNodo(String nom) {
+        tesoroAux = null;
+        tesoroTrobat = false;
+        buscarNodo(nom, tesoroOrigen);
+    }
+
+    private void buscarNodo(String nom, Tesoro tesoro) {
+        if (!tesoroTrobat) {
+            if (nom.equals(tesoro.getName())) {
+                tesoroAux = tesoro;
+                tesoroTrobat = true;
+            } else {
+                if (tesoro.getHijoMayor() != null) {
+                    buscarNodo(nom, tesoro.getHijoMayor());
+                }
+                if (tesoro.getHijoMenor() != null) {
+                    buscarNodo(nom, tesoro.getHijoMenor());
+                }
+            }
+        }
+    }
+
+    public void eliminarNodo(String nom) {
+        buscarNodo(nom);
+        Tesoro padre;
+        if (tesoroAux == null) {
+            System.out.println("Aquest tresor no existeix");
+        } else  {
+            padre = tesoroAux.getPadre();
+            if (tesoroAux.getHijoMenor() == null && tesoroAux.getHijoMayor() == null) {
+                //Si no te cap fill
+                if (padre.getHijoMenor() == tesoroAux) {
+                    padre.setHijoMenor(null);
+                } else if (padre.getHijoMayor() == tesoroAux) {
+                    padre.setHijoMayor(null);
+                }
+            } else if (tesoroAux.getHijoMenor() == null) {
+                //Si hi ha fill major
+                if (padre.getHijoMenor() == tesoroAux) {
+                    padre.setHijoMenor(tesoroAux.getHijoMayor());
+                } else if (padre.getHijoMayor() == tesoroAux) {
+                    padre.setHijoMayor(tesoroAux.getHijoMayor());
+                }
+            } else if (tesoroAux.getHijoMayor() == null) {
+                //Si hi ha fill menor
+                if (padre.getHijoMenor() == tesoroAux) {
+                    padre.setHijoMenor(tesoroAux.getHijoMenor());
+                } else if (padre.getHijoMayor() == tesoroAux) {
+                    padre.setHijoMayor(tesoroAux.getHijoMenor());
+                }
+            } else {
+
+            }
+        }
+    }
+
+    public void inOrdre() {
+        inOrdre(tesoroOrigen);
+    }
+
+    private void inOrdre (Tesoro tesoro) {
+        System.out.println(tesoro.toString());
+        if (tesoro.getHijoMenor() != null) {
+            inOrdre(tesoro.getHijoMenor());
+        }
+        if (tesoro.getHijoMayor() != null) {
+            inOrdre(tesoro.getHijoMayor());
+        }
+    }
+
+
+
+
 
 }
