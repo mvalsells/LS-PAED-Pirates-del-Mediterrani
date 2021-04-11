@@ -38,7 +38,7 @@ public class ControlArbolesBinarios {
         System.out.println("\tIV. Per nivells");
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("\tQuin recorregut vols fer servir? ");
+        System.out.print("\n\tQuin recorregut vols fer servir? ");
         String recorregut = sc.nextLine();
         switch (recorregut) {
             case "I":
@@ -51,11 +51,19 @@ public class ControlArbolesBinarios {
                 arbolTesoro.inOrdre();
                 break;
             case "IV":
+                arbolTesoro.nivells();
                 break;
 
             default:
                 System.out.println("Aquest cas no existeix");
         }
+    }
+
+    private void opcionD() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\n\tEntra el valor a cercar: ");
+        long valor = sc.nextLong();
+        System.out.println("\t" + arbolTesoro.cercaValorExacte(valor));
     }
 
 
@@ -94,7 +102,7 @@ public class ControlArbolesBinarios {
                 return;
 
             case "D":
-
+                opcionD();
                 return;
 
             case "E":

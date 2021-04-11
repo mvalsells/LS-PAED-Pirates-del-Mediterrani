@@ -1,5 +1,10 @@
 package paedS2.arbres;
 
+import paedS2.grafs.Vertice;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class ArbolTesoro {
 
     private Tesoro tesoroOrigen;
@@ -94,7 +99,7 @@ public class ArbolTesoro {
         if (tesoro.getHijoMenor() != null) {
             inOrdre(tesoro.getHijoMenor());
         }
-        System.out.println(tesoro.toString());
+        System.out.println("\n\t" + tesoro.toString());
         if (tesoro.getHijoMayor() != null) {
             inOrdre(tesoro.getHijoMayor());
         }
@@ -103,7 +108,7 @@ public class ArbolTesoro {
     public void preOrdre() {preOrdre(tesoroOrigen);}
 
     private void preOrdre(Tesoro tesoro) {
-        System.out.println(tesoro.toString());
+        System.out.println("\n\t" + tesoro.toString());
         if (tesoro.getHijoMenor() != null) {
             preOrdre(tesoro.getHijoMenor());
         }
@@ -121,10 +126,53 @@ public class ArbolTesoro {
         if (tesoro.getHijoMayor() != null) {
             postOrdre(tesoro.getHijoMayor());
         }
-        System.out.println(tesoro.toString());
+        System.out.println("\n\t" + tesoro.toString());
+    }
+
+    public void nivells() {nivells(tesoroOrigen);}
+
+    private void nivells(Tesoro tesoro) {
+        Queue<Tesoro> cua = new LinkedList<>();
+        cua.offer(tesoro);
+
+        while (!cua.isEmpty()) {
+            Tesoro t = cua.poll();
+            System.out.println("\n\t" + t.toString());
+            if (t.getHijoMenor() != null) {
+                cua.offer(t.getHijoMenor());
+            }
+            if (t.getHijoMayor() != null) {
+                cua.offer(t.getHijoMayor());
+            }
+        }
     }
 
 
+    public String cercaValorExacte (long valor) {
+        tesoroAux = null;
+        tesoroTrobat = false;
+        cercaValorExacte(valor, tesoroOrigen);
+        if (tesoroTrobat) {
+            return tesoroAux.getName();
+        } else {
+            return "Tresor no trobat";
+        }
+    }
+
+    private void cercaValorExacte(long valor, Tesoro tesoro) {
+        if (!tesoroTrobat) {
+            if (tesoro.getValor() == valor) {
+                tesoroTrobat = true;
+                tesoroAux = tesoro;
+            } else {
+                if (tesoro.getValor() < valor) {
+                    cercaValorExacte(valor, tesoro.getHijoMayor());
+                } else {
+                    cercaValorExacte(valor, tesoro.getHijoMenor());
+                }
+            }
+        }
+    }
 
 
 
