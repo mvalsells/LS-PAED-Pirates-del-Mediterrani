@@ -91,10 +91,10 @@ public class ArbolTesoro {
     }
 
     private void inOrdre (Tesoro tesoro) {
-        System.out.println(tesoro.toString());
         if (tesoro.getHijoMenor() != null) {
             inOrdre(tesoro.getHijoMenor());
         }
+        System.out.println(tesoro.toString());
         if (tesoro.getHijoMayor() != null) {
             inOrdre(tesoro.getHijoMayor());
         }
