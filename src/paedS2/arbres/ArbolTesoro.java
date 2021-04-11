@@ -100,6 +100,30 @@ public class ArbolTesoro {
         }
     }
 
+    public void preOrdre() {preOrdre(tesoroOrigen);}
+
+    private void preOrdre(Tesoro tesoro) {
+        System.out.println(tesoro.toString());
+        if (tesoro.getHijoMenor() != null) {
+            preOrdre(tesoro.getHijoMenor());
+        }
+        if (tesoro.getHijoMayor() != null) {
+            preOrdre(tesoro.getHijoMayor());
+        }
+    }
+
+    public void postOrdre() {postOrdre(tesoroOrigen);}
+
+    private void postOrdre(Tesoro tesoro) {
+        if (tesoro.getHijoMenor() != null) {
+            postOrdre(tesoro.getHijoMenor());
+        }
+        if (tesoro.getHijoMayor() != null) {
+            postOrdre(tesoro.getHijoMayor());
+        }
+        System.out.println(tesoro.toString());
+    }
+
 
 
 
