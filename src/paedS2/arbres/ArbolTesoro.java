@@ -24,12 +24,14 @@ public class ArbolTesoro {
     private void inserirNodo(Tesoro tesoro, Tesoro padre) {
         if (padre.getValor() < tesoro.getValor()) {
             if(padre.getHijoMayor() == null) {
+                tesoro.setPadre(padre);
                 padre.setHijoMayor(tesoro);
             } else {
                 inserirNodo(tesoro, padre.getHijoMayor());
             }
         } else if (padre.getValor() > tesoro.getValor()) {
             if(padre.getHijoMenor() == null) {
+                tesoro.setPadre(padre);
                 padre.setHijoMenor(tesoro);
             } else {
                 inserirNodo(tesoro, padre.getHijoMenor());
@@ -93,21 +95,32 @@ public class ArbolTesoro {
             } else {
                 //Te dos fills
                 System.out.println("2 fills");
-                Tesoro tmp = tesoroAux.getHijoMayor();
-                while (tmp.getHijoMenor()!=null){
-                    tmp = tmp.getHijoMenor();
+                Tesoro tesorDesplacar = tesoroAux.getHijoMayor();
+                while (tesorDesplacar.getHijoMenor()!=null){
+                    tesorDesplacar = tesorDesplacar.getHijoMenor();
                 }
 
-                if (tmp.getHijoMayor()!=null){
-                    tmp.getPadre().setHijoMenor(tmp.getHijoMayor());
-                }
-
+                //S'indica el nou fill al pare del node a eliminar
                 if (padre.getHijoMenor() == tesoroAux) {
-                    padre.setHijoMenor(tmp);
+                    padre.setHijoMenor(tesorDesplacar);
                 } else if (padre.getHijoMayor() == tesoroAux) {
-                    padre.setHijoMayor(tmp);
+                    padre.setHijoMayor(tesorDesplacar);
                 }
-                tmp.setHijoMayor(tesoroAux.getHijoMayor());
+
+                //Es passa al fill menor del eliminar al desplaçar
+                tesorDesplacar.setHijoMenor(tesoroAux.getHijoMenor());
+
+
+                //Miro si el node a substituir és fill del a eliminar
+                if (tesoroAux.getHijoMayor()!=tesorDesplacar) {
+                    //En cas de que no sigui fill actualitzem el pare i el fill major
+                    if (tesorDesplacar.getHijoMayor() != null) {
+                        tesorDesplacar.getPadre().setHijoMenor(tesorDesplacar.getHijoMayor());
+                        tesorDesplacar.getHijoMayor().setPadre(tesorDesplacar.getPadre());
+                    }
+
+                    tesorDesplacar.setHijoMayor(tesoroAux.getHijoMayor());
+                }
             }
         }
     }
@@ -158,7 +171,7 @@ public class ArbolTesoro {
 
         while (!cua.isEmpty()) {
             Tesoro t = cua.poll();
-            System.out.println("\n\t" + t.toString());
+            System.out.println("\t" + t.toString());
             if (t.getHijoMenor() != null) {
                 cua.offer(t.getHijoMenor());
             }

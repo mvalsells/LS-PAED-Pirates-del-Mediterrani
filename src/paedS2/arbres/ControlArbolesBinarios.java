@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ControlArbolesBinarios {
 
-    String ruta = "dataset/treeXXS.paed";
+    String ruta = "dataset/treeXS.paed";
 
     private ArbolTesoro arbolTesoro;
 
@@ -26,7 +26,7 @@ public class ControlArbolesBinarios {
 
     private void opcionB (){
         Scanner sc = new Scanner(System.in);
-        System.out.print("\nEntra el nom del tresor a eliminar: ");
+        System.out.print("\n\tEntra el nom del tresor a eliminar: ");
         String nom = sc.nextLine();
         arbolTesoro.eliminarNodo(nom);
     }
@@ -96,7 +96,7 @@ public class ControlArbolesBinarios {
 
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("\n\tEscull una opció:");
+        System.out.print("\n\tEscull una opció: ");
         String opc = sc.nextLine();
 
         switch (opc) {
@@ -106,11 +106,13 @@ public class ControlArbolesBinarios {
 
             case "B":
                 opcionB();
-                return;
+                break;
+                //return;
 
             case "C":
                 opcionC();
-                return;
+                //return;
+                break;
 
             case "D":
                 opcionD();

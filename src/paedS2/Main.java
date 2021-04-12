@@ -23,7 +23,7 @@ public class Main {
         System.out.println("5. Sortir");
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("\nEscull una opció:");
+        System.out.print("\nEscull una opció: ");
         int opc = sc.nextInt();
 
         switch (opc) {

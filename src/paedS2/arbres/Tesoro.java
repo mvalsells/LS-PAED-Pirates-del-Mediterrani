@@ -1,5 +1,9 @@
 package paedS2.arbres;
 
+import javax.swing.text.NumberFormatter;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Tesoro {
     private String name;
     private long valor;
@@ -62,6 +66,7 @@ public class Tesoro {
 
     @Override
     public String toString() {
-        return name + " - " + valor + " doblons";
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
+        return name + " - " + numberFormat.format(valor) + " doblons";
     }
 }
