@@ -2,6 +2,7 @@ package paedS2.arbres;
 
 import paedS2.LeerDataset;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ControlArbolesBinarios {
@@ -66,10 +67,20 @@ public class ControlArbolesBinarios {
         System.out.println("\t" + arbolTesoro.cercaValorExacte(valor));
     }
 
+    private void opcionE() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\n\tEntra el valor mínim a cercar: ");
+        long valorMin = sc.nextLong();
+        System.out.print("\tEntra el valor màxim a cercar: ");
+        long valorMax = sc.nextLong();
 
+        ArrayList<Tesoro> tesoros = arbolTesoro.cercaValorRang(valorMin, valorMax);
+        System.out.println("\nS'han trobat "+ tesoros.size()+ " tresors en aquest rang: \n");
+        for (int i = 0; i < tesoros.size(); i++) {
+            System.out.println("\t"+tesoros.get(i));
+        }
 
-
-
+    }
 
     public void menuPrincipal() {
 
@@ -106,7 +117,7 @@ public class ControlArbolesBinarios {
                 return;
 
             case "E":
-
+                opcionE();
                 return;
 
             case "F":

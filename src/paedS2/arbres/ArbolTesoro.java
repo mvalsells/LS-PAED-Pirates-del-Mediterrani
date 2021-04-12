@@ -2,6 +2,7 @@ package paedS2.arbres;
 
 import paedS2.grafs.Vertice;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -10,6 +11,7 @@ public class ArbolTesoro {
     private Tesoro tesoroOrigen;
     private Tesoro tesoroAux;
     private boolean tesoroTrobat;
+    private ArrayList<Tesoro> tesorosRang;
 
     public ArbolTesoro(Tesoro tesoroOrigen) {
         this.tesoroOrigen = tesoroOrigen;
@@ -173,6 +175,30 @@ public class ArbolTesoro {
             }
         }
     }
+
+    public ArrayList<Tesoro> cercaValorRang (long valorMin, long valorMax) {
+        tesorosRang = new ArrayList<>();
+        cercaValorRang(valorMin, valorMax,tesoroOrigen);
+        return tesorosRang;
+    }
+
+    private void cercaValorRang(long valorMin, long valorMax,Tesoro tesoro) {
+        if(tesoro != null) {
+            if (tesoro.getValor() >= valorMin && tesoro.getValor() <= valorMax) {
+                tesorosRang.add(tesoro);
+                cercaValorRang(valorMin, valorMax, tesoro.getHijoMenor());
+                cercaValorRang(valorMin, valorMax, tesoro.getHijoMayor());
+            } else {
+                if (tesoro.getValor() > valorMax) {
+                    cercaValorRang(valorMin, valorMax, tesoro.getHijoMenor());
+                } else if (tesoro.getValor() < valorMin) {
+                    cercaValorRang(valorMin, valorMax, tesoro.getHijoMenor());
+                }
+            }
+        }
+    }
+
+
 
 
 
