@@ -68,6 +68,7 @@ public class ArbolTesoro {
             padre = tesoroAux.getPadre();
             if (tesoroAux.getHijoMenor() == null && tesoroAux.getHijoMayor() == null) {
                 //Si no te cap fill
+                System.out.println("cap fill");
                 if (padre.getHijoMenor() == tesoroAux) {
                     padre.setHijoMenor(null);
                 } else if (padre.getHijoMayor() == tesoroAux) {
@@ -75,6 +76,7 @@ public class ArbolTesoro {
                 }
             } else if (tesoroAux.getHijoMenor() == null) {
                 //Si hi ha fill major
+                System.out.println("1 fill major");
                 if (padre.getHijoMenor() == tesoroAux) {
                     padre.setHijoMenor(tesoroAux.getHijoMayor());
                 } else if (padre.getHijoMayor() == tesoroAux) {
@@ -82,13 +84,30 @@ public class ArbolTesoro {
                 }
             } else if (tesoroAux.getHijoMayor() == null) {
                 //Si hi ha fill menor
+                System.out.println("1 fill menor");
                 if (padre.getHijoMenor() == tesoroAux) {
                     padre.setHijoMenor(tesoroAux.getHijoMenor());
                 } else if (padre.getHijoMayor() == tesoroAux) {
                     padre.setHijoMayor(tesoroAux.getHijoMenor());
                 }
             } else {
+                //Te dos fills
+                System.out.println("2 fills");
+                Tesoro tmp = tesoroAux.getHijoMayor();
+                while (tmp.getHijoMenor()!=null){
+                    tmp = tmp.getHijoMenor();
+                }
 
+                if (tmp.getHijoMayor()!=null){
+                    tmp.getPadre().setHijoMenor(tmp.getHijoMayor());
+                }
+
+                if (padre.getHijoMenor() == tesoroAux) {
+                    padre.setHijoMenor(tmp);
+                } else if (padre.getHijoMayor() == tesoroAux) {
+                    padre.setHijoMayor(tmp);
+                }
+                tmp.setHijoMayor(tesoroAux.getHijoMayor());
             }
         }
     }
