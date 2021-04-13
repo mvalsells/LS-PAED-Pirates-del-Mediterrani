@@ -66,62 +66,112 @@ public class ArbolTesoro {
         Tesoro padre;
         if (tesoroAux == null) {
             System.out.println("Aquest tresor no existeix");
-        } else  {
+        } else {
             padre = tesoroAux.getPadre();
-            if (tesoroAux.getHijoMenor() == null && tesoroAux.getHijoMayor() == null) {
-                //Si no te cap fill
-                System.out.println("cap fill");
-                if (padre.getHijoMenor() == tesoroAux) {
-                    padre.setHijoMenor(null);
-                } else if (padre.getHijoMayor() == tesoroAux) {
-                    padre.setHijoMayor(null);
-                }
-            } else if (tesoroAux.getHijoMenor() == null) {
-                //Si hi ha fill major
-                System.out.println("1 fill major");
-                if (padre.getHijoMenor() == tesoroAux) {
-                    padre.setHijoMenor(tesoroAux.getHijoMayor());
-                } else if (padre.getHijoMayor() == tesoroAux) {
-                    padre.setHijoMayor(tesoroAux.getHijoMayor());
-                }
-            } else if (tesoroAux.getHijoMayor() == null) {
-                //Si hi ha fill menor
-                System.out.println("1 fill menor");
-                if (padre.getHijoMenor() == tesoroAux) {
-                    padre.setHijoMenor(tesoroAux.getHijoMenor());
-                } else if (padre.getHijoMayor() == tesoroAux) {
-                    padre.setHijoMayor(tesoroAux.getHijoMenor());
-                }
-            } else {
-                //Te dos fills
-                System.out.println("2 fills");
-                Tesoro tesorDesplacar = tesoroAux.getHijoMayor();
-                while (tesorDesplacar.getHijoMenor()!=null){
-                    tesorDesplacar = tesorDesplacar.getHijoMenor();
-                }
-
-                //S'indica el nou fill al pare del node a eliminar
-                if (padre.getHijoMenor() == tesoroAux) {
-                    padre.setHijoMenor(tesorDesplacar);
-                } else if (padre.getHijoMayor() == tesoroAux) {
-                    padre.setHijoMayor(tesorDesplacar);
-                }
-
-                //Es passa al fill menor del eliminar al desplaçar
-                tesorDesplacar.setHijoMenor(tesoroAux.getHijoMenor());
-
-
-                //Miro si el node a substituir és fill del a eliminar
-                if (tesoroAux.getHijoMayor()!=tesorDesplacar) {
-                    //En cas de que no sigui fill actualitzem el pare i el fill major
-                    if (tesorDesplacar.getHijoMayor() != null) {
-                        tesorDesplacar.getPadre().setHijoMenor(tesorDesplacar.getHijoMayor());
-                        tesorDesplacar.getHijoMayor().setPadre(tesorDesplacar.getPadre());
+            if (padre != null) {
+                if (tesoroAux.getHijoMenor() == null && tesoroAux.getHijoMayor() == null) {
+                    //Si no te cap fill
+                    System.out.println("cap fill");
+                    if (padre.getHijoMenor() == tesoroAux) {
+                        padre.setHijoMenor(null);
+                    } else if (padre.getHijoMayor() == tesoroAux) {
+                        padre.setHijoMayor(null);
+                    }
+                } else if (tesoroAux.getHijoMenor() == null) {
+                    //Si hi ha fill major
+                    System.out.println("1 fill major");
+                    if (padre.getHijoMenor() == tesoroAux) {
+                        padre.setHijoMenor(tesoroAux.getHijoMayor());
+                    } else if (padre.getHijoMayor() == tesoroAux) {
+                        padre.setHijoMayor(tesoroAux.getHijoMayor());
+                    }
+                } else if (tesoroAux.getHijoMayor() == null) {
+                    //Si hi ha fill menor
+                    System.out.println("1 fill menor");
+                    if (padre.getHijoMenor() == tesoroAux) {
+                        padre.setHijoMenor(tesoroAux.getHijoMenor());
+                    } else if (padre.getHijoMayor() == tesoroAux) {
+                        padre.setHijoMayor(tesoroAux.getHijoMenor());
+                    }
+                } else {
+                    //Te dos fills
+                    System.out.println("2 fills");
+                    Tesoro tresorDesplacar = tesoroAux.getHijoMayor();
+                    while (tresorDesplacar.getHijoMenor() != null) {
+                        tresorDesplacar = tresorDesplacar.getHijoMenor();
                     }
 
-                    tesorDesplacar.setHijoMayor(tesoroAux.getHijoMayor());
+                    //S'indica el nou fill al pare del node a eliminar
+                    if (padre.getHijoMenor() == tesoroAux) {
+                        padre.setHijoMenor(tresorDesplacar);
+                    } else if (padre.getHijoMayor() == tesoroAux) {
+                        padre.setHijoMayor(tresorDesplacar);
+                    }
+
+                    //Es passa al fill menor del eliminar al desplaçar
+                    tresorDesplacar.setHijoMenor(tesoroAux.getHijoMenor());
+
+                    //Miro si el node a substituir és fill del a eliminar
+                    if (tesoroAux.getHijoMayor() != tresorDesplacar) {
+                        //En cas de que no sigui fill actualitzem el pare i el fill major
+                        if (tresorDesplacar.getHijoMayor() != null) {
+                            tresorDesplacar.getPadre().setHijoMenor(tresorDesplacar.getHijoMayor());
+                            tresorDesplacar.getHijoMayor().setPadre(tresorDesplacar.getPadre());
+                        } else {
+                            tresorDesplacar.getPadre().setHijoMenor(null);
+                        }
+
+                        tresorDesplacar.setHijoMayor(tesoroAux.getHijoMayor());
+
+                    }
                 }
+            } else {
+                //Sin padre
+                if (tesoroAux.getHijoMenor() == null && tesoroAux.getHijoMayor() == null) {
+                    //Si no te cap fill
+                    tesoroOrigen = null;
+
+                } else if (tesoroAux.getHijoMenor() == null) {
+                    //Si hi ha fill major
+                    tesoroOrigen = tesoroAux.getHijoMayor();
+                    tesoroOrigen.setPadre(null);
+
+                } else if (tesoroAux.getHijoMayor() == null) {
+                    //Si hi ha fill menor
+                    tesoroOrigen = tesoroAux.getHijoMenor();
+                    tesoroOrigen.setPadre(null);
+
+                } else {
+                    //Si te dos fills
+                    Tesoro tresorDesplacar = tesoroAux.getHijoMayor();
+                    while (tresorDesplacar.getHijoMenor() != null) {
+                        tresorDesplacar = tresorDesplacar.getHijoMenor();
+                    }
+
+                    tesoroOrigen = tresorDesplacar;
+
+                    //Es passa al fill menor del eliminar al desplaçar
+                    tresorDesplacar.setHijoMenor(tesoroAux.getHijoMenor());
+
+                    //Miro si el node a substituir és fill del a eliminar
+                    if (tesoroAux.getHijoMayor() != tresorDesplacar) {
+                        //En cas de que no sigui fill actualitzem el pare i el fill major
+                        if (tresorDesplacar.getHijoMayor() != null) {
+                            tresorDesplacar.getPadre().setHijoMenor(tresorDesplacar.getHijoMayor());
+                            tresorDesplacar.getHijoMayor().setPadre(tresorDesplacar.getPadre());
+                        } else {
+                            tresorDesplacar.getPadre().setHijoMenor(null);
+                        }
+
+                        tresorDesplacar.setHijoMayor(tesoroAux.getHijoMayor());
+
+                    }
+
+                    tesoroOrigen.setPadre(null);
+                }
+
             }
+
         }
     }
 
