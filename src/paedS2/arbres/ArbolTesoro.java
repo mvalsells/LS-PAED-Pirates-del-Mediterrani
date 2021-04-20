@@ -280,8 +280,30 @@ public class ArbolTesoro {
         }
     }
 
+    public void alturaArbol() {
+        alturaArbol(tesoroOrigen);
+    }
 
+    private void alturaArbol(Tesoro tesoro){
+        if (tesoro != null){
+            alturaArbol(tesoro.getHijoMenor());
+            alturaArbol(tesoro.getHijoMayor());
 
+            if (tesoro.getHijoMenor() == null && tesoro.getHijoMayor() == null){
+                tesoro.setAltura(0);
+            }else if (tesoro.getHijoMenor() == null){
+                tesoro.setAltura(tesoro.getHijoMayor().getAltura() + 1);
+            }else if (tesoro.getHijoMayor() == null){
+                tesoro.setAltura(tesoro.getHijoMenor().getAltura() + 1);
+            }else{
+                if (tesoro.getHijoMayor().getAltura() < tesoro.getHijoMenor().getAltura()) {
+                    tesoro.setAltura(tesoro.getHijoMenor().getAltura() + 1);
+                } else {
+                    tesoro.setAltura(tesoro.getHijoMayor().getAltura() + 1);
+                }
+            }
+        }
+    }
 
 
 }

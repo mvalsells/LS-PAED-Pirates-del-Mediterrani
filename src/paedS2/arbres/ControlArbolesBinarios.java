@@ -55,6 +55,9 @@ public class ControlArbolesBinarios {
                 arbolTesoro.nivells();
                 break;
 
+            case "V":
+                arbolTesoro.alturaArbol();
+                break;
             default:
                 System.out.println("Aquest cas no existeix");
         }

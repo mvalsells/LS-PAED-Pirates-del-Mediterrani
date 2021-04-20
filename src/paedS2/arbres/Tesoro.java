@@ -10,6 +10,8 @@ public class Tesoro {
     private Tesoro padre;
     private Tesoro hijoMenor;
     private Tesoro hijoMayor;
+    private int altura;
+    private int factorBalanceig;
 
     public Tesoro(String name, long valor){
         this.name  = name;
@@ -64,9 +66,17 @@ public class Tesoro {
         this.hijoMayor = hijoMayor;
     }
 
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
     @Override
     public String toString() {
         NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
-        return name + " - " + numberFormat.format(valor) + " doblons";
+        return name + " - " + numberFormat.format(valor) + " doblons" + " - altura: " + altura;
     }
 }
