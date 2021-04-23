@@ -74,9 +74,17 @@ public class Tesoro {
         this.altura = altura;
     }
 
+    public int getFactorBalanceig() {
+        return factorBalanceig;
+    }
+
+    public void setFactorBalanceig(int factorBalanceig) {
+        this.factorBalanceig = factorBalanceig;
+    }
+
     @Override
     public String toString() {
         NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
-        return name + " - " + numberFormat.format(valor) + " doblons" + " - altura: " + altura;
+        return name + " - " + numberFormat.format(valor) + " doblons" + " - altura: " + altura + " -- Balanceig: " + factorBalanceig;
     }
 }

@@ -2,6 +2,8 @@ package paedS2.arbres;
 
 import paedS2.grafs.Vertice;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -281,7 +283,9 @@ public class ArbolTesoro {
     }
 
     public void alturaArbol() {
+
         alturaArbol(tesoroOrigen);
+        balanceigArbol(tesoroOrigen);
     }
 
     private void alturaArbol(Tesoro tesoro){
@@ -304,6 +308,85 @@ public class ArbolTesoro {
             }
         }
     }
+
+    private void balanceigArbol(Tesoro tesoro){
+        if (tesoro != null){
+            balanceigArbol(tesoro.getHijoMenor());
+            balanceigArbol(tesoro.getHijoMayor());
+
+            if (tesoro.getHijoMenor() == null && tesoro.getHijoMayor() == null){
+                tesoro.setFactorBalanceig(0);
+            }else if (tesoro.getHijoMenor() == null){
+                tesoro.setFactorBalanceig(-tesoro.getHijoMayor().getAltura() - 1);
+            }else if (tesoro.getHijoMayor() == null){
+                tesoro.setFactorBalanceig(tesoro.getHijoMenor().getAltura() + 1);
+            }else{
+                tesoro.setFactorBalanceig(tesoro.getHijoMenor().getAltura() - tesoro.getHijoMayor().getAltura());
+            }
+        }
+    }
+
+    public void AVL(){
+        if (tesoroOrigen.getFactorBalanceig() > 1 && tesoroOrigen.getValor() < tesoroOrigen.getHijoMenor().getValor()){
+            tesoroOrigen = rightRotate(tesoroOrigen);
+        }else if(tesoroOrigen.getFactorBalanceig() < -1 && tesoroOrigen.getValor() > tesoroOrigen.getHijoMayor().getValor()){
+            tesoroOrigen = leftRotate(tesoroOrigen);
+        }else if (tesoroOrigen.getFactorBalanceig() > 1 && tesoroOrigen.getValor() > tesoroOrigen.getHijoMenor().getValor()){
+            tesoroOrigen.setHijoMenor(leftRotate(tesoroOrigen.getHijoMenor()));
+            tesoroOrigen = rightRotate(tesoroOrigen);
+        }else if(tesoroOrigen.getFactorBalanceig() < -1 && tesoroOrigen.getValor() < tesoroOrigen.getHijoMayor().getValor()){
+            tesoroOrigen.setHijoMayor(rightRotate(tesoroOrigen.getHijoMayor()));
+            tesoroOrigen = leftRotate(tesoroOrigen);
+        }
+
+    }
+
+    private Tesoro rightRotate(Tesoro y) {
+        Tesoro x = y.getHijoMenor();
+        Tesoro T2 = x.getHijoMayor();
+
+        // Perform rotation
+        x.setHijoMayor(y);
+        y.setHijoMenor(T2);
+
+        // Update heights
+
+        alturaArbol();
+
+        // Return new root
+        return x;
+    }
+
+    private Tesoro leftRotate(Tesoro x) {
+        Tesoro y = x.getHijoMayor();
+        Tesoro T2 = y.getHijoMenor();
+
+        // Perform rotation
+        y.setHijoMenor(x);
+        x.setHijoMayor(T2);
+
+        //  Update heights
+        alturaArbol();
+
+        // Return new root
+        return y;
+    }
+
+    public void dibujarArbol(){
+        Lienzo lienzo = new Lienzo();
+        lienzo.setObjArbol(tesoroOrigen);
+
+        JFrame ventana = new JFrame();
+
+        ventana.setDefaultCloseOperation(3);
+
+        ventana.setLayout(new BorderLayout());
+        ventana.add(new JScrollPane(lienzo));
+
+        ventana.setSize(1000, 1000);
+        ventana.setVisible(true);
+    }
+
 
 
 }

@@ -58,6 +58,12 @@ public class ControlArbolesBinarios {
             case "V":
                 arbolTesoro.alturaArbol();
                 break;
+            case "VI":
+                arbolTesoro.AVL();
+                break;
+            case "X":
+                arbolTesoro.dibujarArbol();
+                break;
             default:
                 System.out.println("Aquest cas no existeix");
         }
