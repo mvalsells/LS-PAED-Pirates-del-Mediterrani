@@ -1,7 +1,5 @@
 package paedS2.arbres;
 
-import paedS2.grafs.Vertice;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -327,18 +325,131 @@ public class ArbolTesoro {
     }
 
     public void AVL(){
-        if (tesoroOrigen.getFactorBalanceig() > 1 && tesoroOrigen.getValor() < tesoroOrigen.getHijoMenor().getValor()){
-            tesoroOrigen = rightRotate(tesoroOrigen);
-        }else if(tesoroOrigen.getFactorBalanceig() < -1 && tesoroOrigen.getValor() > tesoroOrigen.getHijoMayor().getValor()){
-            tesoroOrigen = leftRotate(tesoroOrigen);
-        }else if (tesoroOrigen.getFactorBalanceig() > 1 && tesoroOrigen.getValor() > tesoroOrigen.getHijoMenor().getValor()){
-            tesoroOrigen.setHijoMenor(leftRotate(tesoroOrigen.getHijoMenor()));
-            tesoroOrigen = rightRotate(tesoroOrigen);
-        }else if(tesoroOrigen.getFactorBalanceig() < -1 && tesoroOrigen.getValor() < tesoroOrigen.getHijoMayor().getValor()){
-            tesoroOrigen.setHijoMayor(rightRotate(tesoroOrigen.getHijoMayor()));
-            tesoroOrigen = leftRotate(tesoroOrigen);
+        tesoroOrigen = rebalance(tesoroOrigen);
+
+    }
+    private void updateHeight(Tesoro n) {
+        n.setAltura(1 + Math.max(height(n.getHijoMenor()), height(n.getHijoMayor())));
+    }
+
+    private int height(Tesoro n) {
+        return n == null ? -1 : n.getAltura();
+    }
+
+    private int getBalance(Tesoro n) {
+        return (n == null) ? 0 : height(n.getHijoMayor()) - height(n.getHijoMenor());
+    }
+
+    private Tesoro rebalance(Tesoro z) {
+        updateHeight(z);
+        int balance = getBalance(z);
+        while (balance < -1 || balance > 1) {
+            updateHeight(z);
+            balance = getBalance(z);
+            if (balance > 1) {
+                if (height(z.getHijoMayor().getHijoMayor()) > height(z.getHijoMayor().getHijoMenor())) {
+                    z = rotateLeft(z);
+                } else {
+                    z.setHijoMayor(rotateRight(z.getHijoMayor()));
+                    z = rotateLeft(z);
+                }
+            } else if (balance < -1) {
+                if (height(z.getHijoMenor().getHijoMenor()) > height(z.getHijoMenor().getHijoMayor()))
+                    z = rotateRight(z);
+                else {
+                    z.setHijoMenor(rotateLeft(z.getHijoMenor()));
+                    z = rotateRight(z);
+                }
+            }
+        }
+        return z;
+    }
+
+    private Tesoro rotateRight(Tesoro y) {
+        Tesoro x = y.getHijoMenor();
+        Tesoro z = x.getHijoMayor();
+        x.setHijoMayor(y);
+        y.setHijoMenor(z);
+        updateHeight(y);
+        updateHeight(x);
+        return x;
+    }
+
+    private Tesoro rotateLeft(Tesoro y) {
+        Tesoro x = y.getHijoMayor();
+        Tesoro z = x.getHijoMenor();
+        x.setHijoMenor(y);
+        y.setHijoMayor(z);
+        updateHeight(y);
+        updateHeight(x);
+        return x;
+    }
+
+    public void AVL(Tesoro tesoro){
+        Tesoro temporal= null;
+        while (tesoro.getFactorBalanceig() < -1 || tesoro.getFactorBalanceig() > 1) {
+
+            if (tesoro.getHijoMenor() != null){
+                if (tesoro.getFactorBalanceig() > 1 && tesoro.getValor() < valor(tesoro.getHijoMenor())) {
+                    tesoro = rightRotate(tesoro);
+                }
+                if (tesoro.getFactorBalanceig() > 1 && tesoro.getValor() > valor(tesoro.getHijoMenor())) {
+                    tesoro.setHijoMenor(leftRotate(tesoro.getHijoMenor()));
+                    tesoro = rightRotate(tesoro);
+                }
+            }
+
+            if (tesoro.getHijoMayor() != null){
+                if (tesoro.getFactorBalanceig() < -1 && tesoro.getValor() > valor(tesoro.getHijoMayor())) {
+                    tesoro = leftRotate(tesoro);
+                }
+                if (tesoro.getFactorBalanceig() < -1 && tesoro.getValor() < valor(tesoro.getHijoMayor())) {
+                    tesoro.setHijoMayor(rightRotate(tesoro.getHijoMayor()));
+                    tesoro = leftRotate(tesoro);
+                }
+            }
+
+            if (tesoro.equals(temporal)){
+                break;
+            }else{
+                temporal = tesoro;
+            }
+
+            /*if (tesoro.getFactorBalanceig() > 1 && tesoro.getValor() < valor(tesoro.getHijoMenor())) {
+                tesoro = rightRotate(tesoro);
+            } else if (tesoro.getFactorBalanceig() < -1 && tesoro.getValor() > valor(tesoro.getHijoMayor())) {
+                tesoro = leftRotate(tesoro);
+            } else if (tesoro.getFactorBalanceig() > 1 && tesoro.getValor() > valor(tesoro.getHijoMenor())) {
+                tesoro.setHijoMenor(leftRotate(tesoro.getHijoMenor()));
+                tesoro = rightRotate(tesoro);
+            } else if (tesoro.getFactorBalanceig() < -1 && tesoro.getValor() < valor(tesoro.getHijoMayor())) {
+                tesoro.setHijoMayor(rightRotate(tesoro.getHijoMayor()));
+                tesoro = leftRotate(tesoro);
+            }*/
         }
 
+        if (tesoro.getHijoMenor() != null){
+            AVL(tesoro.getHijoMenor());
+        }
+        if (tesoro.getHijoMayor() != null){
+            AVL(tesoro.getHijoMayor());
+        }
+
+
+    }
+
+    int height2(Tesoro N) {
+        if (N == null)
+            return 0;
+
+        return N.getAltura();
+    }
+
+    long valor(Tesoro N) {
+        if (N == null)
+            return 0;
+
+        return N.getValor();
     }
 
     private Tesoro rightRotate(Tesoro y) {
@@ -350,8 +461,8 @@ public class ArbolTesoro {
         y.setHijoMenor(T2);
 
         // Update heights
-
-        alturaArbol();
+        y.setAltura(Math.max(height(y.getHijoMenor()), height(y.getHijoMayor())) + 1);
+        x.setAltura( Math.max(height(x.getHijoMenor()), height(x.getHijoMayor())) + 1);
 
         // Return new root
         return x;
@@ -366,7 +477,8 @@ public class ArbolTesoro {
         x.setHijoMayor(T2);
 
         //  Update heights
-        alturaArbol();
+        x.setAltura(Math.max(height(x.getHijoMenor()), height(x.getHijoMayor())) + 1);
+        y.setAltura(Math.max(height(y.getHijoMenor()), height(y.getHijoMayor())) + 1);
 
         // Return new root
         return y;
