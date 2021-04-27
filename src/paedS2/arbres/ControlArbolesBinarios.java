@@ -1,7 +1,6 @@
 package paedS2.arbres;
 
 import paedS2.LeerDataset;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

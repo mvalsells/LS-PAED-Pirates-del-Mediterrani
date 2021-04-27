@@ -1,13 +1,13 @@
 package paedS2;
 
-import paedS2.arbres.ArbolTesoro;
+import paedS2.arbres.AVLTree;
 import paedS2.arbres.ControlArbolesBinarios;
 import paedS2.grafs.Graf;
 
 import java.util.Scanner;
 
 public class Main {
-    private static ControlArbolesBinarios controlArbolesBinarios = new ControlArbolesBinarios();;
+   /* private static ControlArbolesBinarios controlArbolesBinarios = new ControlArbolesBinarios();;
     public static void main(String[] args) {
         Graf.init();
 
@@ -53,5 +53,10 @@ public class Main {
 
         menuPrincipal();
 
-    }
+    }*/
+   public static void main(String[] args) {
+       AVLTree avl = LeerDataset.tesoroAVL("dataset/treeXS.paed");
+       avl.nivells();
+   }
+
 }

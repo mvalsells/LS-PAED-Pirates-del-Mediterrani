@@ -18,7 +18,9 @@ public class ArbolTesoro {
     }
 
     public void inserirNodo(Tesoro tesoro) {
+        //alturaArbol();
         inserirNodo(tesoro, tesoroOrigen);
+
     }
 
     private void inserirNodo(Tesoro tesoro, Tesoro padre) {
@@ -37,6 +39,8 @@ public class ArbolTesoro {
                 inserirNodo(tesoro, padre.getHijoMenor());
             }
         }
+
+        rebalance(tesoro);
     }
 
     public void buscarNodo(String nom) {
@@ -283,7 +287,7 @@ public class ArbolTesoro {
     public void alturaArbol() {
 
         alturaArbol(tesoroOrigen);
-        balanceigArbol(tesoroOrigen);
+        //balanceigArbol(tesoroOrigen);
     }
 
     private void alturaArbol(Tesoro tesoro){
@@ -343,9 +347,9 @@ public class ArbolTesoro {
     private Tesoro rebalance(Tesoro z) {
         updateHeight(z);
         int balance = getBalance(z);
-        while (balance < -1 || balance > 1) {
-            updateHeight(z);
-            balance = getBalance(z);
+        //while (balance < -1 || balance > 1) {
+        //    updateHeight(z);
+        //    balance = getBalance(z);
             if (balance > 1) {
                 if (height(z.getHijoMayor().getHijoMayor()) > height(z.getHijoMayor().getHijoMenor())) {
                     z = rotateLeft(z);
@@ -361,7 +365,7 @@ public class ArbolTesoro {
                     z = rotateRight(z);
                 }
             }
-        }
+        //}
         return z;
     }
 

@@ -1,5 +1,6 @@
 package paedS2;
 
+import paedS2.arbres.AVLTree;
 import paedS2.arbres.ArbolTesoro;
 import paedS2.arbres.Tesoro;
 import paedS2.grafs.Vertice;
@@ -84,6 +85,38 @@ public class LeerDataset {
                 arbol.inserirNodo(new Tesoro(split[0], valor));
 
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return arbol;
+    }
+
+    public static AVLTree tesoroAVL (String ruta) {
+
+        AVLTree arbol = null;
+
+        try {
+            FileReader fr = new FileReader(ruta);
+            BufferedReader br = new BufferedReader(fr);
+            int numTesoros = Integer.parseInt(br.readLine());
+
+            String linia = br.readLine();
+            String[] split = linia.split(",");
+            long valor = Long.parseLong(split[1]);
+            Tesoro root = new Tesoro(split[0], valor);
+            arbol = new AVLTree(root);
+
+            for (int i =1; i<numTesoros; i++){
+                linia = br.readLine();
+                split = linia.split(",");
+                valor = Long.parseLong(split[1]);
+                arbol.insert(root, new Tesoro(split[0], valor));
+
+            }
+            System.out.println("");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
