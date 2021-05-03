@@ -3,6 +3,8 @@ package paedS2;
 import paedS2.arbres.AVLTree;
 import paedS2.arbres.ArbolTesoro;
 import paedS2.arbres.Tesoro;
+import paedS2.arbresR.ArbolR;
+import paedS2.arbresR.TesoroR;
 import paedS2.grafs.Vertice;
 
 import java.io.BufferedReader;
@@ -117,6 +119,37 @@ public class LeerDataset {
 
             }
             System.out.println("");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return arbol;
+    }
+
+    public static ArbolR tesoroR (String ruta){
+        ArbolR arbol = null;
+
+        try {
+            FileReader fr = new FileReader(ruta);
+            BufferedReader br = new BufferedReader(fr);
+            int numTesoros = Integer.parseInt(br.readLine());
+
+            String linia = br.readLine();
+            String[] split = linia.split(",");
+            long x = Long.parseLong(split[1]);
+            long y = Long.parseLong(split[2]);
+            arbol = new ArbolR(new TesoroR(split[0], x, y));
+
+            for (int i =1; i<numTesoros; i++){
+                linia = br.readLine();
+                split = linia.split(",");
+                x = Long.parseLong(split[1]);
+                y = Long.parseLong(split[2]);
+                arbol.insertTesoro(new TesoroR(split[0], x, y));
+
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
