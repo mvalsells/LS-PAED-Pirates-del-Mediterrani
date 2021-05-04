@@ -140,7 +140,7 @@ public class LeerDataset {
             String[] split = linia.split(",");
             long x = Long.parseLong(split[1]);
             long y = Long.parseLong(split[2]);
-            arbol = new ArbolR(new TesoroR(split[0], x, y));
+            //arbol = new ArbolR(new TesoroR(split[0], x, y));
 
             for (int i =1; i<numTesoros; i++){
                 linia = br.readLine();

@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 public class ArbolR {
 
-    private TesoroR[] root = new TesoroR[3];
-    private ArrayList<ArrayList> algo = new ArrayList<>();
+    private RectanguloR root;
+    private int orden;
 
-    public ArbolR(TesoroR tesoroR) {
-        root[0] = tesoroR;
+    public ArbolR(TesoroR tesoroR,int orden ) {
+        root = new RectanguloR(tesoroR, orden);
+        this.orden=orden;
     }
 
+    public void inserir(ElementoR elementoR){
+        root.insert(elementoR);
+    }
+
+/*
     public void insertTesoro(TesoroR tesoroR){
         insertTesoro(tesoroR, root);
     }
@@ -33,5 +39,5 @@ public class ArbolR {
             return true;
         }
         return false;
-    }
+    }*/
 }
