@@ -2,6 +2,7 @@ package paedS2;
 
 import paedS2.arbres.AVLTree;
 import paedS2.arbres.ControlArbolesBinarios;
+import paedS2.arbresR.ControlArbolesR;
 import paedS2.grafs.Graf;
 
 import java.util.Scanner;
@@ -37,6 +38,8 @@ public class Main {
                 break;
 
             case 3:
+                ControlArbolesR controlArbolesR = new ControlArbolesR();
+                controlArbolesR.menuPrincipal();
                 break;
 
             case 4:

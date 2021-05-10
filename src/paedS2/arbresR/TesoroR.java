@@ -13,6 +13,18 @@ public class TesoroR implements ElementoR{
         this.y = y;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     @Override
     public float incremento(ElementoR elementoR) {
         if (elementoR.posicio().size()==2){
@@ -44,7 +56,30 @@ public class TesoroR implements ElementoR{
     }
 
     @Override
+    public ArrayList<ElementoR> getHijos() {
+        return null;
+    }
+
+    @Override
+    public float area(ElementoR elementoR) {
+        float base = Math.abs(x-elementoR.posicio().get(0));
+        float altura = Math.abs(y-elementoR.posicio().get(1));
+
+
+        return base * altura;
+    }
+
+    @Override
     public void insert(ElementoR elementoR) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "TesoroR{" +
+                "name='" + name + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

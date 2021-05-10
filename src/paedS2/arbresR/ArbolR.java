@@ -8,12 +8,29 @@ public class ArbolR {
     private int orden;
 
     public ArbolR(TesoroR tesoroR,int orden ) {
-        root = new RectanguloR(tesoroR, orden);
+        root = new RectanguloR(tesoroR, orden, 0);
         this.orden=orden;
     }
 
     public void inserir(ElementoR elementoR){
         root.insert(elementoR);
+    }
+
+    public void mostrarArbol(){
+        mostrarArbol(root);
+
+        System.out.println("ARbol: "+root.toString());
+    }
+    public void mostrarArbol(ElementoR elementoR){
+        ArrayList<ElementoR> hijos = elementoR.getHijos();
+
+        if (hijos == null) {System.out.println("Hola: "+(elementoR).toString()); return;}
+
+        for (int i = 0; i < hijos.size(); i++) {
+            if (hijos.get(i) != null){
+                mostrarArbol(hijos.get(i));
+            }
+        }
     }
 
 /*
