@@ -44,7 +44,7 @@ public class TesoroR implements ElementoR{
             float novaArea = costatX*costatY;
             return novaArea-areaActual;
         }
-        return 0;
+        return Float.MIN_VALUE;
     }
 
     @Override

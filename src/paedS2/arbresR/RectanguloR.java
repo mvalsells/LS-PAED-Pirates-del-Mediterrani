@@ -10,6 +10,10 @@ public class RectanguloR implements ElementoR{
     private boolean isHoja;
     private int altura;
     private int siguientePos;
+    private float maxY;
+    private float maxX;
+    private float minY;
+    private float minX;
 
 
     public RectanguloR(ElementoR elementoR, int orden, int altura){
@@ -18,6 +22,8 @@ public class RectanguloR implements ElementoR{
         this.altura = altura;
         isHoja = true;
         siguientePos = 0;
+        maxX=minX=elementoR.posicio().get(0);
+        maxY=minY=elementoR.posicio().get(1);
         insert(elementoR);
     }
 
@@ -28,7 +34,12 @@ public class RectanguloR implements ElementoR{
 
     @Override
     public ArrayList<Float> posicio() {
-        return null;
+        ArrayList<Float> pos = new ArrayList<>();
+        pos.add(maxX);
+        pos.add(maxY);
+        pos.add(minX);
+        pos.add(minY);
+        return pos;
     }
 
     @Override
@@ -41,9 +52,24 @@ public class RectanguloR implements ElementoR{
         return 0;
     }
 
+    private void updateLimits(float x, float y){
+        if (y>maxY){
+            maxY=y;
+        } else if (y<minY){
+            minY=y;
+        }
+        if (x>maxX){
+            maxX=x;
+        } else if (x<minX){
+            minX=x;
+        }
+    }
+
 
     @Override
     public void insert(ElementoR elementoR) {
+        ArrayList<Float> newPos = elementoR.posicio();
+        updateLimits(newPos.get(0), newPos.get(1));
         if (isHoja) {
             elementos.add(elementoR);
             if (elementos.size() > orden) {
@@ -54,7 +80,7 @@ public class RectanguloR implements ElementoR{
                 System.out.println(maxTesoros[0]);
                 System.out.println(maxTesoros[1]);
 
-
+                
                 ArrayList<ElementoR> aux = new ArrayList<>();
                 int posTesoro1 = elementos.indexOf(maxTesoros[0]);
                 aux.add(new RectanguloR(elementos.remove(posTesoro1), orden, altura+1));
@@ -91,6 +117,19 @@ public class RectanguloR implements ElementoR{
 
             }
         }else {
+            float incermentoMin=Float.MAX_VALUE;
+            ElementoR masCerca = null;
+            for(ElementoR r : getHijos()){
+                float incremento=elementoR.incremento(r);
+                if ( incremento < incermentoMin){
+                    incermentoMin=incremento;
+                    masCerca=r;
+                }
+            }
+
+            masCerca.insert(elementoR);
+
+            /*
             //if (isInSideArea((TesoroR) elementoR)) return;
 
             float areaMin = Float.MAX_VALUE;
@@ -112,7 +151,7 @@ public class RectanguloR implements ElementoR{
                 }
             }
 
-            elementos.get(posElemento).insert(elementoR);
+            elementos.get(posElemento).insert(elementoR);*/
         }
 
     }
@@ -167,7 +206,11 @@ public class RectanguloR implements ElementoR{
         }
 
         return text+"RectanguloR{" +
-                "elementos=" + elementos +
+               /* "minX=" + minX +
+                " minY=" + minY +
+                " maxX=" + maxX +
+                " maxY=" + maxY +*/
+                " elementos=" + elementos +
                 '}';
     }
 }
