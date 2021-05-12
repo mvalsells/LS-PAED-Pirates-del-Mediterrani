@@ -4,18 +4,26 @@ import paedS2.arbres.AVLTree;
 import paedS2.arbres.ControlArbolesBinarios;
 import paedS2.arbresR.ControlArbolesR;
 import paedS2.grafs.Graf;
+import paedS2.taules.ControlTaules;
 
 import java.util.Scanner;
 
 public class Main {
-    private static ControlArbolesBinarios controlArbolesBinarios = new ControlArbolesBinarios();;
+    private static ControlArbolesBinarios controlArbolesBinarios;
+    private static ControlArbolesR controlArbolesR;
+    private static ControlTaules controlTaules;
     public static void main(String[] args) {
         Graf.init();
-
+        controlArbolesBinarios  = new ControlArbolesBinarios();
+        controlArbolesR  = new ControlArbolesR();
+        controlTaules = new ControlTaules();
         menuPrincipal();
     }
 
     public static void menuPrincipal() {
+
+
+
         System.out.println("\n-= Pirates del Mediterrani =- \n");
         System.out.println("1. Rutes (Grafs)");
         System.out.println("2. Inventari (Arbres binaris)");
@@ -38,11 +46,11 @@ public class Main {
                 break;
 
             case 3:
-                ControlArbolesR controlArbolesR = new ControlArbolesR();
                 controlArbolesR.menuPrincipal();
                 break;
 
             case 4:
+                controlTaules.menuPrincipal();
                 break;
 
             case 5:

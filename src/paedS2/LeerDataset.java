@@ -6,6 +6,8 @@ import paedS2.arbres.Tesoro;
 import paedS2.arbresR.ArbolR;
 import paedS2.arbresR.TesoroR;
 import paedS2.grafs.Vertice;
+import paedS2.taules.Pirata;
+import paedS2.taules.Taula;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -158,5 +160,26 @@ public class LeerDataset {
         }
 
         return arbol;
+    }
+
+    public static Taula taula (String ruta){
+        Taula taula = new Taula();
+
+        try {
+            FileReader fr = new FileReader(ruta);
+            BufferedReader br = new BufferedReader(fr);
+            int numPirates = Integer.parseInt(br.readLine());
+
+            for (int i = 0; i<numPirates; i++){
+                String linia = br.readLine();
+                String[] split = linia.split(",");
+                taula.afegirPirata(new Pirata(split[0],Integer.parseInt(split[1]),split[2]));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return taula;
     }
 }
