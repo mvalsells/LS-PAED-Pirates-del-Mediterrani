@@ -125,6 +125,11 @@ public class RectanguloR implements ElementoR{
                     System.out.println("------------");
                 }else{
                     elementos.remove(elementoR);
+                    ElementoR aux2[] = tesorosMasLejanos(elementos);
+                    maxX = Math.max(aux2[0].posicio().get(0), aux2[1].posicio().get(0));
+                    minX = Math.min(aux2[0].posicio().get(0), aux2[1].posicio().get(0));
+                    maxY = Math.max(aux2[0].posicio().get(1), aux2[1].posicio().get(1));
+                    minY = Math.min(aux2[0].posicio().get(1), aux2[1].posicio().get(1));
                     this.padre.addHijo(new RectanguloR(elementoR, orden, altura, this.padre));
                 }
 
@@ -142,58 +147,8 @@ public class RectanguloR implements ElementoR{
 
             masCerca.insert(elementoR);
 
-            /*
-            //if (isInSideArea((TesoroR) elementoR)) return;
-
-            float areaMin = Float.MAX_VALUE;
-            int posElemento = -1;
-            for (int i = 0; i < elementos.size(); i++) {
-
-                ArrayList<ElementoR> hijos =  (ArrayList<ElementoR>)elementos.get(i).getHijos().clone();
-
-                if (hijos.get(0).getClass().equals(TesoroR.class)){
-                   //Los Elementos son Tesoros,es decir Hoja
-                    hijos.add(elementoR);
-
-                    ElementoR[] tesorosMax = tesorosMasLejanos(hijos);
-                    float area = tesorosMax[0].area(tesorosMax[1]);
-
-                    if (area < areaMin){
-                        posElemento = i;
-                    }
-                }
-            }
-
-            elementos.get(posElemento).insert(elementoR);*/
         }
 
-    }
-
-    private boolean isInSideArea(TesoroR tesoroR){
-        for (int i = 0; i < elementos.size(); i++) {
-            if (betweenTwo(elementos.get(i).getHijos().get(0).posicio().get(0), tesoroR.posicio().get(0), elementos.get(i).getHijos().get(1).posicio().get(0))){
-                if(betweenTwo(elementos.get(i).getHijos().get(0).posicio().get(1), tesoroR.posicio().get(1), elementos.get(i).getHijos().get(1).posicio().get(1))){
-                    //Esta dentro del rectangulo
-
-                    //elementos.get(i).insert(tesoroR);
-                    return true;
-
-                }
-            }
-
-
-        }
-
-        return false;
-    }
-
-    private boolean betweenTwo(float num, float num1, float num2){
-        if (num1 < num && num < num2){
-            return true;
-        }else if(num1 > num && num > num2){
-            return true;
-        }
-        return false;
     }
 
     private ElementoR[] tesorosMasLejanos(ArrayList<ElementoR> elementos){
