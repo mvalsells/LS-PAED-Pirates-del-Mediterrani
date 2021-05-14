@@ -16,15 +16,16 @@ public class RectanguloR implements ElementoR{
     private float minX;
 
 
-    public RectanguloR(ElementoR elementoR, int orden, int altura){
+    public RectanguloR(ElementoR elementoR, int orden, int altura, RectanguloR padre){
         elementos = new ArrayList<>();
         this.orden = orden;
         this.altura = altura;
+        this.padre = padre;
         isHoja = true;
         siguientePos = 0;
         maxX=minX=elementoR.posicio().get(0);
         maxY=minY=elementoR.posicio().get(1);
-        insert(elementoR);
+        insert(elementoR, padre);
     }
 
     @Override
@@ -47,6 +48,14 @@ public class RectanguloR implements ElementoR{
         return elementos;
     }
 
+    public void addHijo (RectanguloR nuevoHijo){
+        elementos.add(nuevoHijo);
+    }
+
+    public RectanguloR getPadre() {
+        return padre;
+    }
+
     @Override
     public float area(ElementoR elementoR) {
         return 0;
@@ -67,53 +76,56 @@ public class RectanguloR implements ElementoR{
 
 
     @Override
-    public void insert(ElementoR elementoR) {
+    public void insert(ElementoR elementoR, RectanguloR padre) {
         ArrayList<Float> newPos = elementoR.posicio();
         updateLimits(newPos.get(0), newPos.get(1));
         if (isHoja) {
             elementos.add(elementoR);
             if (elementos.size() > orden) {
-                isHoja = false;
-                ElementoR[] maxTesoros = tesorosMasLejanos(elementos);
-                System.out.println("------------");
+                if (padre == null || padre.getHijos().size() == 3) {
+                    isHoja = false;
+                    ElementoR[] maxTesoros = tesorosMasLejanos(elementos);
+                    System.out.println("------------");
 
-                System.out.println(maxTesoros[0]);
-                System.out.println(maxTesoros[1]);
+                    System.out.println(maxTesoros[0]);
+                    System.out.println(maxTesoros[1]);
 
-                
-                ArrayList<ElementoR> aux = new ArrayList<>();
-                int posTesoro1 = elementos.indexOf(maxTesoros[0]);
-                aux.add(new RectanguloR(elementos.remove(posTesoro1), orden, altura+1));
 
-                int posTesoro2 = elementos.indexOf(maxTesoros[1]);
-                aux.add(new RectanguloR(elementos.remove(posTesoro2), orden, altura+1));
+                    ArrayList<ElementoR> aux = new ArrayList<>();
+                    int posTesoro1 = elementos.indexOf(maxTesoros[0]);
+                    aux.add(new RectanguloR(elementos.remove(posTesoro1), orden, altura + 1, this));
 
-                float areaA = elementos.get(0).area(aux.get(0).getHijos().get(0));
-                float areaB = elementos.get(0).area(aux.get(1).getHijos().get(0));
+                    int posTesoro2 = elementos.indexOf(maxTesoros[1]);
+                    aux.add(new RectanguloR(elementos.remove(posTesoro2), orden, altura + 1, this));
 
-                if (areaA < areaB) {
-                    aux.get(0).insert(elementos.remove(0));
-                } else {
-                    aux.get(1).insert(elementos.remove(0));
+                    float areaA = elementos.get(0).area(aux.get(0).getHijos().get(0));
+                    float areaB = elementos.get(0).area(aux.get(1).getHijos().get(0));
+
+                    if (areaA < areaB) {
+                        aux.get(0).insert(elementos.remove(0), (RectanguloR) aux.get(0));
+                    } else {
+                        aux.get(1).insert(elementos.remove(0), (RectanguloR) aux.get(1));
+                    }
+                    aux.get(0).getHijos().get(0);
+
+                    areaA = elementos.get(0).area(aux.get(0).getHijos().get(0));
+                    areaB = elementos.get(0).area(aux.get(1).getHijos().get(0));
+
+                    if (areaA < areaB) {
+                        aux.get(0).insert(elementos.remove(0), (RectanguloR) aux.get(0));
+                    } else {
+                        aux.get(1).insert(elementos.remove(0), (RectanguloR) aux.get(1));
+                    }
+
+                    elementos = aux;
+
+                    System.out.println(elementos.toString());
+                    System.out.println(aux.toString());
+
+                    System.out.println("------------");
+                }else{
+                    padre.addHijo(new RectanguloR(elementoR, orden, altura, padre));
                 }
-                aux.get(0).getHijos().get(0);
-
-                areaA = elementos.get(0).area(aux.get(0).getHijos().get(0));
-                areaB = elementos.get(0).area(aux.get(1).getHijos().get(0));
-
-                if (areaA < areaB) {
-                    aux.get(0).insert(elementos.remove(0));
-                } else {
-                    aux.get(1).insert(elementos.remove(0));
-                }
-
-                elementos = aux;
-
-                System.out.println(elementos.toString());
-                System.out.println(aux.toString());
-
-                System.out.println("------------");
-
 
             }
         }else {
@@ -127,7 +139,7 @@ public class RectanguloR implements ElementoR{
                 }
             }
 
-            masCerca.insert(elementoR);
+            masCerca.insert(elementoR, (RectanguloR)masCerca);
 
             /*
             //if (isInSideArea((TesoroR) elementoR)) return;
@@ -162,7 +174,7 @@ public class RectanguloR implements ElementoR{
                 if(betweenTwo(elementos.get(i).getHijos().get(0).posicio().get(1), tesoroR.posicio().get(1), elementos.get(i).getHijos().get(1).posicio().get(1))){
                     //Esta dentro del rectangulo
 
-                    elementos.get(i).insert(tesoroR);
+                    //elementos.get(i).insert(tesoroR);
                     return true;
 
                 }
@@ -206,10 +218,10 @@ public class RectanguloR implements ElementoR{
         }
 
         return text+"RectanguloR{" +
-               /* "minX=" + minX +
+                "minX=" + minX +
                 " minY=" + minY +
                 " maxX=" + maxX +
-                " maxY=" + maxY +*/
+                " maxY=" + maxY +
                 " elementos=" + elementos +
                 '}';
     }

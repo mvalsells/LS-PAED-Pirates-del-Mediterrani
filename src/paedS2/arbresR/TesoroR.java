@@ -70,7 +70,7 @@ public class TesoroR implements ElementoR{
     }
 
     @Override
-    public void insert(ElementoR elementoR) {
+    public void insert(ElementoR elementoR, RectanguloR padre) {
 
     }
 

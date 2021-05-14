@@ -8,12 +8,12 @@ public class ArbolR {
     private int orden;
 
     public ArbolR(TesoroR tesoroR,int orden ) {
-        root = new RectanguloR(tesoroR, orden, 0);
+        root = new RectanguloR(tesoroR, orden, 0, null);
         this.orden=orden;
     }
 
     public void inserir(ElementoR elementoR){
-        root.insert(elementoR);
+        root.insert(elementoR, null);
     }
 
     public void mostrarArbol(){
