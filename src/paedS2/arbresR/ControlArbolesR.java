@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class ControlArbolesR {
 
-    String ruta = "dataset/r-treeXXS.paed";
+    String ruta = "dataset/r-treeXS.paed";
 
     private ArbolR arbolR;
 

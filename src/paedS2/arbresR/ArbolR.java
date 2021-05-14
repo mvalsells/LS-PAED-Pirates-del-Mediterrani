@@ -13,13 +13,13 @@ public class ArbolR {
     }
 
     public void inserir(ElementoR elementoR){
-        root.insert(elementoR, null);
+        root.insert(elementoR);
     }
 
     public void mostrarArbol(){
         mostrarArbol(root);
 
-        System.out.println("ARbol: "+root.toString());
+        System.out.println("Arbol: "+root.toString());
     }
     public void mostrarArbol(ElementoR elementoR){
         ArrayList<ElementoR> hijos = elementoR.getHijos();
