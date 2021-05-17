@@ -163,13 +163,13 @@ public class LeerDataset {
     }
 
     public static Taula taula (String ruta){
-        Taula taula = new Taula();
+        Taula taula = null;
 
         try {
             FileReader fr = new FileReader(ruta);
             BufferedReader br = new BufferedReader(fr);
             int numPirates = Integer.parseInt(br.readLine());
-
+            taula = new Taula(numPirates);
             for (int i = 0; i<numPirates; i++){
                 String linia = br.readLine();
                 String[] split = linia.split(",");
