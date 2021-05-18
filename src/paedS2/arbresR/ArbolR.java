@@ -57,4 +57,8 @@ public class ArbolR {
         }
         return false;
     }*/
+
+    public RectanguloR getRoot() {
+        return root;
+    }
 }
