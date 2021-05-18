@@ -2,6 +2,7 @@ package paedS2.taules;
 
 import paedS2.LeerDataset;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,12 +57,14 @@ public class ControlTaules {
     private void opcionD(){
         System.out.println("\nGenerant histograma...");
         int[] edats = taulaNom.getEdats();
-        for (int i = 0; i < edats.length; i++) {
+        //Visual
+        new JFHistograma(edats);
+        //Consola
+        /*for (int i = 0; i < edats.length; i++) {
             if (edats[i]!=0) {
-                int edat = i + 14;
-                System.out.println("\t Hi ha " + edats[i] + " pirates amb " + edat + " anys");
+                System.out.println("\t Hi ha " + edats[i] + " pirates amb " + i + " anys");
             }
-        }
+        }*/
     }
 
     public void menuPrincipal() {
