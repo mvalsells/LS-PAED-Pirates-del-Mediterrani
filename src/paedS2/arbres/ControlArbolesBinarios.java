@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class ControlArbolesBinarios {
 
-    String ruta = "dataset/treeXS.paed";
+    String ruta = "dataset/treeXXS.paed";
 
-    private ArbolTesoro arbolTesoro;
+    private AVLTree arbolTesoro;
 
     public ControlArbolesBinarios() {
-        arbolTesoro = LeerDataset.tesoro(ruta);
+        arbolTesoro = LeerDataset.tesoroAVL(ruta);
     }
     private void opcionA (){
         Scanner sc = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class ControlArbolesBinarios {
         String nom = sc.nextLine();
         System.out.print("Entra el valor del tresor a afegir: ");
         Long valor = Long.parseLong(sc.nextLine());
-        arbolTesoro.inserirNodo(new Tesoro(nom, valor));
+        arbolTesoro.insert(arbolTesoro.getRoot(), valor, nom);
         System.out.println("\nEl tresor s'ha afegit correctament al botí.");
     }
 
@@ -31,6 +31,8 @@ public class ControlArbolesBinarios {
     }
 
     private void opcionC () {
+
+        arbolTesoro.balanceigArbol(arbolTesoro.getRoot());
 
         System.out.println("\n\tI. Preordre");
         System.out.println("\tII. Postordre");
@@ -52,13 +54,6 @@ public class ControlArbolesBinarios {
                 break;
             case "IV":
                 arbolTesoro.nivells();
-                break;
-
-            case "V":
-                arbolTesoro.alturaArbol();
-                break;
-            case "VI":
-                arbolTesoro.AVL();
                 break;
             case "X":
                 arbolTesoro.dibujarArbol();

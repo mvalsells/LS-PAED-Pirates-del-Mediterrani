@@ -117,7 +117,7 @@ public class LeerDataset {
                 linia = br.readLine();
                 split = linia.split(",");
                 valor = Long.parseLong(split[1]);
-                arbol.insert(root, new Tesoro(split[0], valor));
+                arbol.insert(valor, split[0]);
 
             }
             System.out.println("");
