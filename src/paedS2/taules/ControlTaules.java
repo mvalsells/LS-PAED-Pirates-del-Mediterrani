@@ -2,16 +2,19 @@ package paedS2.taules;
 
 import paedS2.LeerDataset;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ControlTaules {
 
-    private Taula taula;
-    private String ruta = "dataset/tablesXXS.paed";
+    private TaulaNom taulaNom;
+
+    private String ruta = "dataset/tablesM.paed";
     Scanner sc;
 
     public ControlTaules(){
-        taula = LeerDataset.taula(ruta);
+
+        taulaNom = LeerDataset.taulaNom(ruta);
         sc  = new Scanner(System.in);
     }
 
@@ -23,32 +26,42 @@ public class ControlTaules {
         int edat = Integer.parseInt(sc.nextLine());
         System.out.print("Entra el rol del pirata a afegir: ");
         String rol = sc.nextLine();
-
-        taula.afegirPirata(new Pirata(nom, edat,rol));
+        taulaNom.afegirPirata(new Pirata(nom, edat,rol));
         System.out.println("\nEl pirata s'ha afegit correctament a la tripulació.");
     }
 
     private void opcionB(){
         System.out.print("Entra el nom del pirata a eliminar: ");
         String nom = sc.nextLine();
-        taula.eliminarPirata(nom);
+        taulaNom.eliminarPirata(nom);
         System.out.println("\nEl pirata s'ha eliminat correctament de la tripulació. F.");
     }
     private void opcionC(){
         System.out.print("Entra el nom del pirata a consultar: ");
         String nom = sc.nextLine();
-        Pirata p = taula.consultarPirata(nom);
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nNom: ");
-        sb.append(p.getNom());
-        sb.append("\nEdat: ");
-        sb.append(p.getEdat());
-        sb.append("\nRol: ");
-        sb.append(p.getRol());
-        System.out.println(sb);
+        Pirata p = taulaNom.consultarPirata(nom);
+        if (p==null){
+            System.out.println("\nNo existeix el pirata");
+        } else {
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n\tNom: ");
+            sb.append(p.getNom());
+            sb.append("\n\tEdat: ");
+            sb.append(p.getEdat());
+            sb.append("\n\tRol: ");
+            sb.append(p.getRol());
+            System.out.println(sb);
+        }
     }
     private void opcionD(){
         System.out.println("\nGenerant histograma...");
+        int[] edats = taulaNom.getEdats();
+        for (int i = 0; i < edats.length; i++) {
+            if (edats[i]!=0) {
+                int edat = i + 14;
+                System.out.println("\t Hi ha " + edats[i] + " pirates amb " + edat + " anys");
+            }
+        }
     }
 
     public void menuPrincipal() {

@@ -22,4 +22,11 @@ public class Pirata {
     public String getRol() {
         return rol;
     }
+
+    @Override
+    public String toString() {
+        return  "Nom: " + nom +
+                ", Edat: " + edat +
+                ", Rol: " + rol;
+    }
 }

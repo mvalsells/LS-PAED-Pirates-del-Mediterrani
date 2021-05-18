@@ -4,6 +4,7 @@ import paedS2.LeerDataset;
 import paedS2.arbres.ArbolTesoro;
 import paedS2.arbres.Tesoro;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class ControlArbolesR {
@@ -80,7 +81,11 @@ public class ControlArbolesR {
     }
 
     private void opcionC() {
-        arbolR.mostrarArbol();
+        //arbolR.mostrarArbol();
+        JFrame jFrame = new JFrame();
+        jFrame.add(new JPArbolR(arbolR));
+        jFrame.pack();
+        jFrame.setVisible(true);
     }
 
     private void opcionD() {
