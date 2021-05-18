@@ -7,13 +7,14 @@ import paedS2.arbresR.ArbolR;
 import paedS2.arbresR.TesoroR;
 import paedS2.grafs.Vertice;
 import paedS2.taules.Pirata;
-import paedS2.taules.Taula;
+import paedS2.taules.TaulaNom;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeerDataset {
     public static ArrayList<Vertice> grafs (String ruta) {
@@ -162,24 +163,24 @@ public class LeerDataset {
         return arbol;
     }
 
-    public static Taula taula (String ruta){
-        Taula taula = null;
+    public static TaulaNom taulaNom (String ruta){
+        TaulaNom taulaNom = null;
 
         try {
             FileReader fr = new FileReader(ruta);
             BufferedReader br = new BufferedReader(fr);
             int numPirates = Integer.parseInt(br.readLine());
-            taula = new Taula(numPirates);
+            taulaNom = new TaulaNom(numPirates);
             for (int i = 0; i<numPirates; i++){
                 String linia = br.readLine();
                 String[] split = linia.split(",");
-                taula.afegirPirata(new Pirata(split[0],Integer.parseInt(split[1]),split[2]));
+                taulaNom.afegirPirata(new Pirata(split[0],Integer.parseInt(split[1]),split[2]));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return taula;
+        return taulaNom;
     }
 }
