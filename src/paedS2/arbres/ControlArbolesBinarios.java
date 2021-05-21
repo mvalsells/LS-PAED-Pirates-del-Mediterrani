@@ -27,7 +27,7 @@ public class ControlArbolesBinarios {
         Scanner sc = new Scanner(System.in);
         System.out.print("\n\tEntra el nom del tresor a eliminar: ");
         String nom = sc.nextLine();
-        arbolTesoro.eliminarNodo(nom);
+        arbolTesoro.eliminarTesoro(nom);
     }
 
     private void opcionC () {
