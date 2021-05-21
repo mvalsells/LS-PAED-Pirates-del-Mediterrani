@@ -111,40 +111,29 @@ public class AVLTree {
             tesoro.setHijoMenor(insert(tesoro.getHijoMenor(), key, nombre));
         else if (key > tesoro.getValor())
             tesoro.setHijoMayor(insert(tesoro.getHijoMayor(), key, nombre));
-        else // Duplicate keys not allowed
+        else // Duplicate
             return tesoro;
 
-        /* 2. Update height of this ancestor node */
-        tesoro.setAltura(1 + max(height(tesoro.getHijoMenor()),
-                height(tesoro.getHijoMayor())));
+        tesoro.setAltura(1 + max(height(tesoro.getHijoMenor()), height(tesoro.getHijoMayor())));
 
-        /* 3. Get the balance factor of this ancestor
-              node to check whether this node became
-              unbalanced */
         int balance = getBalance(tesoro);
 
-        // If this node becomes unbalanced, then there
-        // are 4 cases Left Left Case
         if (balance > 1 && key < tesoro.getHijoMenor().getValor())
             return rotateRight(tesoro);
 
-        // Right Right Case
         if (balance < -1 && key > tesoro.getHijoMayor().getValor())
             return rotateLeft(tesoro);
 
-        // Left Right Case
         if (balance > 1 && key > tesoro.getHijoMenor().getValor()) {
             tesoro.setHijoMenor(rotateLeft(tesoro.getHijoMenor()));
             return rotateRight(tesoro);
         }
 
-        // Right Left Case
         if (balance < -1 && key < tesoro.getHijoMayor().getValor()) {
             tesoro.setHijoMayor(rotateRight(tesoro.getHijoMayor()));
             return rotateLeft(tesoro);
         }
 
-        /* return the (unchanged) node pointer */
         return tesoro;
     }
 
@@ -285,9 +274,78 @@ public class AVLTree {
     }
 */
 
+    public void eliminarTesoro(String s){
+        buscarNodo(s);
+        System.out.println("Tesoro: " + tesoroAux.toString());
+        eliminarTesoro(root, tesoroAux);
+    }
 
-    public void eliminarNodo(String s){
-        //Añadir la forma de eliminar en AVL
+    public Tesoro eliminarTesoro(Tesoro tesoro, Tesoro tesoroEliminado){
+        if (tesoro == null)
+            return tesoro;
+
+
+        //Esto de aqui es para encontrar la posicion del tesoro eliminado en relacion a tesoro, esto se hace sobre
+        // todo para cuadno tenemos dos hijos en el tesoro que queremos eliminar
+        if (tesoroEliminado.getValor() < tesoro.getValor())
+            tesoro.setHijoMenor(eliminarTesoro(tesoro.getHijoMenor(), tesoroEliminado));
+        else if (tesoroEliminado.getValor() > tesoro.getValor())
+            tesoro.setHijoMayor(eliminarTesoro(tesoro.getHijoMayor(), tesoroEliminado));
+        else { //Cuando tesoro y tesoroEliminado son lo mismo
+            // Si el tesoro eliminado tiene un hijo o zero hijos
+            if ((tesoro.getHijoMenor() == null) || (tesoro.getHijoMayor() == null)){
+                Tesoro aux = null;
+                if (aux == tesoro.getHijoMenor())
+                    aux = tesoro.getHijoMayor();
+                else
+                    aux = tesoro.getHijoMenor();
+
+                // Si no tiene hijos, lo sustituimos por null
+                if (aux == null) {
+                    tesoro = null;
+                } else // Caso con solo un hijo, cambiamos el tesoro por su unico hijo
+                    tesoro = aux;
+            } else { // Caso donde tiene dos hijos
+
+                // Primero buscaremos el hijo mas pequeño de la rama del hijo mayor del tesoro eliminado
+                Tesoro tesoroMin = tesoro.getHijoMayor();
+
+                while (tesoroMin.getHijoMenor() != null)
+                    tesoroMin = tesoroMin.getHijoMenor();
+
+                // Sustituimos lso valores del Tesoror, para no tener que cambiar sus hijos actuales
+                tesoro.setValor(tesoroMin.getValor());
+                tesoro.setName(tesoroMin.getName());
+
+                // Una vez cambiando solo eliminamos el tesoro que hemos duplicado
+                tesoro.setHijoMayor(eliminarTesoro(tesoro.getHijoMayor(), tesoroMin));
+            }
+        }
+        if (tesoro == null)
+            return tesoro;
+
+        //Actualizamos la altura del tesoro actual y hacemos AVL
+        updateHeight(tesoro);
+
+
+        int balance = getBalance(tesoro);
+
+
+        if (balance > 1 && getBalance(tesoro.getHijoMenor()) >= 0)
+            return rotateRight(tesoro);
+        if (balance > 1 && getBalance(tesoro.getHijoMenor()) < 0){
+            tesoro.setHijoMenor(rotateLeft(tesoro.getHijoMenor()));
+            return rotateRight(tesoro);
+        }
+
+        if (balance < -1 && getBalance(tesoro.getHijoMayor()) <= 0)
+            return rotateLeft(tesoro);
+        if (balance < -1 && getBalance(tesoro.getHijoMayor()) > 0){
+            tesoro.setHijoMayor(rotateRight(tesoro.getHijoMayor()));
+            return rotateLeft(tesoro);
+        }
+
+        return tesoro;
     }
 
 
