@@ -33,8 +33,8 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         System.out.print("\nEscull una opció: ");
-        //int opc = sc.nextInt();
-        int opc = 3;
+        int opc = sc.nextInt();
+        //int opc = 3;
 
         switch (opc) {
             case 1:
