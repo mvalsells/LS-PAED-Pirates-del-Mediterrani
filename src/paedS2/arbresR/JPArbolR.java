@@ -11,7 +11,7 @@ public class JPArbolR extends JPanel {
     private Graphics2D graphics2D;
     private int graphX;
     private int graphY;
-    private static final int escalat = 5;
+    private static final int escalat = 7;
     public JPArbolR(ArbolR arbolR){
         this.arbolR=arbolR;
     }
@@ -78,6 +78,9 @@ public class JPArbolR extends JPanel {
             }
         } else if (pos.size()==2){
             //És punt
+            int x = (int)((pos.get(0)-posRoot.get(2))*escalat);
+            int y = (int)(graphY-(pos.get(1)-posRoot.get(3))*escalat);
+            graphics2D.drawOval(x-3, y-3, 6,6);
         }
 
         /*

@@ -119,22 +119,49 @@ public class RectanguloR implements ElementoR{
 
                     elementos = aux;
 
+                    float[] masMin = actualizarPosicionRectangulo(elementos);
+
+                    maxX = masMin[0];
+                    maxY = masMin[1];
+                    minX = masMin[2];
+                    minY = masMin[3];
+
+
+
                     System.out.println(elementos.toString());
                     System.out.println(aux.toString());
 
                     System.out.println("------------");
                 }else{
-                    elementos.remove(elementoR);
+                    ElementoR masLejanos[] = tesorosMasLejanos(elementos);
+                    float areaA = 0;
+                    float areaB = 0;
+                    for (int i = 0; i < elementos.size(); i++) {
+                        if (!elementos.get(i).equals(masLejanos[0]) || !elementos.get(i).equals(masLejanos[1]) ){
+                            areaA += elementos.get(i).area(masLejanos[0]);
+                            areaB += elementos.get(i).area(masLejanos[1]);
+                        }
+                    }
+                    ElementoR elem = null;
+                    if (areaA < areaB){
+                        elementos.remove(masLejanos[1]);
+                        elem = masLejanos[1];
+                    }else {
+                        elementos.remove(masLejanos[0]);
+                        elem = masLejanos[0];
+
+                    }
                     ElementoR aux2[] = tesorosMasLejanos(elementos);
                     maxX = Math.max(aux2[0].posicio().get(0), aux2[1].posicio().get(0));
                     minX = Math.min(aux2[0].posicio().get(0), aux2[1].posicio().get(0));
                     maxY = Math.max(aux2[0].posicio().get(1), aux2[1].posicio().get(1));
                     minY = Math.min(aux2[0].posicio().get(1), aux2[1].posicio().get(1));
-                    this.padre.addHijo(new RectanguloR(elementoR, orden, altura, this.padre));
+                    this.padre.addHijo(new RectanguloR(elem, orden, altura, this.padre));
                 }
 
             }
         }else {
+
             float incermentoMin=Float.MAX_VALUE;
             ElementoR masCerca = null;
             for(ElementoR r : getHijos()){
@@ -165,6 +192,30 @@ public class RectanguloR implements ElementoR{
         }
         return maxTesoros;
     }
+
+    private float[] actualizarPosicionRectangulo(ArrayList<ElementoR> elementos){
+        float[] pos = new float[4];
+        pos[0] = Float.MIN_VALUE;
+        pos[1] = Float.MIN_VALUE;
+        pos[2] = Float.MAX_VALUE;
+        pos[3] = Float.MAX_VALUE;
+        for (int i = 0; i < elementos.size(); i++) {
+            ArrayList<Float> posElemento = elementos.get(i).posicio();
+
+            if (pos[0] < posElemento.get(0)) pos[0] = posElemento.get(0);
+            if (pos[1] < posElemento.get(1)) pos[1] = posElemento.get(1);
+            if (pos[2] > posElemento.get(2)) pos[2] = posElemento.get(2);
+            if (pos[3] > posElemento.get(3)) pos[3] = posElemento.get(3);
+        }
+        return pos;
+    }
+
+    /*
+    pos.add(maxX);
+        pos.add(maxY);
+        pos.add(minX);
+        pos.add(minY);
+     */
 
     @Override
     public String toString() {
