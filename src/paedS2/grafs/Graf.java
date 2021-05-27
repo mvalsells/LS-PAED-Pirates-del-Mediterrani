@@ -8,8 +8,11 @@ public class Graf {
     private static ArrayList<Vertice> vertices;
     private static ArrayList<Vertice> interest;
     private static ArrayList<Vertice> danger;
+    private static long initialReadTime;
     public static void init(){
+        initialReadTime = System.currentTimeMillis();
         vertices = LeerDataset.grafs("dataset/graphXXS.paed");
+        initialReadTime = System.currentTimeMillis() - initialReadTime;
     }
 
     public static void opcionA(int origen){
@@ -26,6 +29,7 @@ public class Graf {
             //TODO Mirar al hacer el menu
             System.out.println("Nodo no existente");
         } else {
+            long tmpTime = System.currentTimeMillis();
             dfs(nodo);
 
             for (Vertice v:vertices){
@@ -33,12 +37,14 @@ public class Graf {
                     dfs(v);
                 }
             }
-
+            tmpTime = System.currentTimeMillis()-tmpTime;
             System.out.println("\nAmb DFS s'han trobat els següents llocs d'interès: \n");
 
             for(Vertice v:interest){
                 System.out.println("\t" + v.getNombre() + " - " + v.getTipo());
             }
+
+            System.out.println("S'ha tardat " + tmpTime + " millis");
         }
     }
 
@@ -72,6 +78,7 @@ public class Graf {
             //TODO Mirar al hacer el menu
             System.out.println("Nodo no existente");
         } else {
+            long tmpTime = System.currentTimeMillis();
             bfs(nodo);
 
             for (Vertice v:vertices){
@@ -79,11 +86,14 @@ public class Graf {
                     bfs(v);
                 }
             }
+            tmpTime = System.currentTimeMillis()-tmpTime;
 
             System.out.println("\nAmb BFS s'han trobat els següents llocs perillosos: \n");
             for(Vertice v:danger){
                 System.out.println("\t" + v.getNombre() + " - " + v.getTipo());
             }
+            System.out.println("S'ha tardat " + tmpTime + " millis");
+
         }
     }
 
@@ -114,7 +124,10 @@ public class Graf {
 
     private static void opcionC () {
         System.out.println("Obtenint el MST...");
+        long tmpTime = System.currentTimeMillis();
         mstPrim();
+        tmpTime = System.currentTimeMillis()-tmpTime;
+        System.out.println("\nS'ha tardat " + tmpTime + " millis");
     }
 
     /*private static void mst() {
@@ -230,6 +243,8 @@ public class Graf {
     }
 
     private static void dijkstra(Vertice nodoOrigen, Vertice nodoDestino) {
+        long tmpTime = System.currentTimeMillis();
+
         int caminos[][] = new int[vertices.size()][vertices.size()];
         for (int i = 0; i < caminos.length; i++) {
             Arrays.fill(caminos[i], -1);
@@ -279,7 +294,7 @@ public class Graf {
 
 
         }
-
+        tmpTime = System.currentTimeMillis()-tmpTime;
         System.out.println("Distancia total: " + dist[nodoDestino.getPosicion()]);
         System.out.print("Passem pels nodes: ");
         for (int i = 0; i < caminos.length; i++){
@@ -289,6 +304,7 @@ public class Graf {
                 break;
             }
         }
+        System.out.println("S'ha tardat " + tmpTime + " millis");
         System.out.println();
     }
 
@@ -296,7 +312,7 @@ public class Graf {
 
         Scanner scInt = new Scanner(System.in);
         int nodeOrigen;
-
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a llegir el dataset");
         System.out.println("\n\tA. Cercar llocs d'interès (DFS)");
         System.out.println("\tB. Cercar llocs perillosos (BFS)");
         System.out.println("\tC. Mostrar la Carta Nàutica Universal (MST)");
@@ -316,8 +332,8 @@ public class Graf {
 
                 opcionA(nodeOrigen);
 
-                return;
-
+                //return;
+                break;
             case "B":
 
                 System.out.print("\nEntra l'identificador del node origen: ");
@@ -325,17 +341,17 @@ public class Graf {
 
                 opcionB(nodeOrigen);
 
-                return;
-
+                //return;
+                break;
             case "C":
 
                 opcionC();
-                return;
-
+                //return;
+                break;
             case "D":
                 opcionD();
-                return;
-
+                //return;
+                break;
             case "E":
                 return;
 
