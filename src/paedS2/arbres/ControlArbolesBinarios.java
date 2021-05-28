@@ -6,12 +6,17 @@ import java.util.Scanner;
 
 public class ControlArbolesBinarios {
 
-    String ruta = "dataset/treeXXS.paed";
+    String ruta = "dataset/treeM.paed";
 
     private AVLTree arbolTesoro;
+    private static long initialReadTime;
 
     public ControlArbolesBinarios() {
+
+        initialReadTime = System.currentTimeMillis();
         arbolTesoro = LeerDataset.tesoroAVL(ruta);
+        initialReadTime = System.currentTimeMillis() - initialReadTime;
+
     }
     private void opcionA (){
         Scanner sc = new Scanner(System.in);
@@ -19,7 +24,11 @@ public class ControlArbolesBinarios {
         String nom = sc.nextLine();
         System.out.print("Entra el valor del tresor a afegir: ");
         Long valor = Long.parseLong(sc.nextLine());
+
+        initialReadTime = System.currentTimeMillis();
         arbolTesoro.insert(arbolTesoro.getRoot(), valor, nom);
+        initialReadTime = System.currentTimeMillis() - initialReadTime;
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a Afegir tresor a Arboles Binarios");
         System.out.println("\nEl tresor s'ha afegit correctament al botí.");
     }
 
@@ -27,7 +36,10 @@ public class ControlArbolesBinarios {
         Scanner sc = new Scanner(System.in);
         System.out.print("\n\tEntra el nom del tresor a eliminar: ");
         String nom = sc.nextLine();
+        initialReadTime = System.currentTimeMillis();
         arbolTesoro.eliminarTesoro(nom);
+        initialReadTime = System.currentTimeMillis() - initialReadTime;
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a Eliminar Tesoro tresor a Arboles Binarios");
     }
 
     private void opcionC () {
@@ -44,16 +56,31 @@ public class ControlArbolesBinarios {
         String recorregut = sc.nextLine();
         switch (recorregut) {
             case "I":
+                initialReadTime = System.currentTimeMillis();
                 arbolTesoro.preOrdre();
+                initialReadTime = System.currentTimeMillis() - initialReadTime;
+                System.out.println("\n\tHe taradat " + initialReadTime + " millis");
                 break;
             case "II":
+                initialReadTime = System.currentTimeMillis();
+
                 arbolTesoro.postOrdre();
+                initialReadTime = System.currentTimeMillis() - initialReadTime;
+                System.out.println("\n\tHe taradat " + initialReadTime + " millis ");
                 break;
             case "III":
+                initialReadTime = System.currentTimeMillis();
+
                 arbolTesoro.inOrdre();
+                initialReadTime = System.currentTimeMillis() - initialReadTime;
+                System.out.println("\n\tHe taradat " + initialReadTime + " millis ");
                 break;
             case "IV":
+                initialReadTime = System.currentTimeMillis();
+
                 arbolTesoro.nivells();
+                initialReadTime = System.currentTimeMillis() - initialReadTime;
+                System.out.println("\n\tHe taradat " + initialReadTime + " millis ");
                 break;
             case "X":
                 arbolTesoro.dibujarArbol();
@@ -67,7 +94,10 @@ public class ControlArbolesBinarios {
         Scanner sc = new Scanner(System.in);
         System.out.print("\n\tEntra el valor a cercar: ");
         long valor = sc.nextLong();
+        initialReadTime = System.currentTimeMillis();
         System.out.println("\t" + arbolTesoro.cercaValorExacte(valor));
+        initialReadTime = System.currentTimeMillis() - initialReadTime;
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a valor a cercar a Arboles Binarios");
     }
 
     private void opcionE() {
@@ -77,11 +107,16 @@ public class ControlArbolesBinarios {
         System.out.print("\tEntra el valor màxim a cercar: ");
         long valorMax = sc.nextLong();
 
+        initialReadTime = System.currentTimeMillis();
         ArrayList<Tesoro> tesoros = arbolTesoro.cercaValorRang(valorMin, valorMax);
+        initialReadTime = System.currentTimeMillis() - initialReadTime;
         System.out.println("\nS'han trobat "+ tesoros.size()+ " tresors en aquest rang: \n");
         for (int i = 0; i < tesoros.size(); i++) {
             System.out.println("\t"+tesoros.get(i));
         }
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a valor a cercar a Arboles Binarios");
+
+
 
     }
 
@@ -89,7 +124,7 @@ public class ControlArbolesBinarios {
 
         Scanner scInt = new Scanner(System.in);
         int nodeOrigen;
-
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a llegir el dataset Arboles Binarios");
         System.out.println("\n\tA. Afegir tresor");
         System.out.println("\tB. Eliminar tresor");
         System.out.println("\tC. Llistar botí");
@@ -105,6 +140,8 @@ public class ControlArbolesBinarios {
         switch (opc) {
             case "A":
                 opcionA();
+                System.out.println("\n\tHe taradat " + initialReadTime + " millis a Afegir tresor a Arboles Binarios");
+
                 return;
 
             case "B":

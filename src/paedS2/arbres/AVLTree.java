@@ -448,7 +448,7 @@ public class AVLTree {
                 if (tesoro.getValor() > valorMax) {
                     cercaValorRang(valorMin, valorMax, tesoro.getHijoMenor());
                 } else if (tesoro.getValor() < valorMin) {
-                    cercaValorRang(valorMin, valorMax, tesoro.getHijoMenor());
+                    cercaValorRang(valorMin, valorMax, tesoro.getHijoMayor());
                 }
             }
         }
