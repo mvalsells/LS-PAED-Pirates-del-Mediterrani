@@ -56,7 +56,8 @@ public class Main {
 
             case 5:
                 System.out.println("A reveure camarada!");
-                return;
+                System.exit(0);
+                break;
 
             default:
                 System.out.println("Aquesta opció no existeix");

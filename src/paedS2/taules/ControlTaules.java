@@ -10,12 +10,13 @@ public class ControlTaules {
 
     private TaulaNom taulaNom;
 
-    private String ruta = "dataset/tablesM.paed";
-    Scanner sc;
-
+    private String ruta = "dataset/tablesXS.paed";
+    private Scanner sc;
+    private long initialReadTime;
     public ControlTaules(){
-
+        initialReadTime = System.currentTimeMillis();
         taulaNom = LeerDataset.taulaNom(ruta);
+        initialReadTime = System.currentTimeMillis()-initialReadTime;
         sc  = new Scanner(System.in);
     }
 
@@ -40,7 +41,10 @@ public class ControlTaules {
     private void opcionC(){
         System.out.print("Entra el nom del pirata a consultar: ");
         String nom = sc.nextLine();
+        long tmpTemps = System.currentTimeMillis();
         Pirata p = taulaNom.consultarPirata(nom);
+        tmpTemps = System.currentTimeMillis()-tmpTemps;
+
         if (p==null){
             System.out.println("\nNo existeix el pirata");
         } else {
@@ -53,12 +57,18 @@ public class ControlTaules {
             sb.append(p.getRol());
             System.out.println(sb);
         }
+
+        System.out.println("S'ha tardat tants " + tmpTemps + " millis en consultar el pirata");
     }
     private void opcionD(){
         System.out.println("\nGenerant histograma...");
         int[] edats = taulaNom.getEdats();
         //Visual
+        long tmpTemps = System.currentTimeMillis();
         new JFHistograma(edats);
+        tmpTemps = System.currentTimeMillis()-tmpTemps;
+
+        System.out.println("S'ha tardat tants " + tmpTemps + " millis en generar el histograma");
         //Consola
         /*for (int i = 0; i < edats.length; i++) {
             if (edats[i]!=0) {
@@ -69,7 +79,7 @@ public class ControlTaules {
 
     public void menuPrincipal() {
 
-
+        System.out.println("\n\tHe taradat " + initialReadTime + " millis a llegir el dataset");
         System.out.println("\n\tA. Afegir pirata");
         System.out.println("\tB. Eliminar pirata");
         System.out.println("\tC. Consultar pirata");
