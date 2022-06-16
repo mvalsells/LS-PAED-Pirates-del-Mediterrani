@@ -9,3 +9,5 @@ The following data structures were implemented by ourselves:
 - Binary trees
 - R trees with graphical representation (I think this one never worked correctly)
 - Tables / HashMap
+
+**Note:** Some XXL dataset have been removed since they are over 100MB
